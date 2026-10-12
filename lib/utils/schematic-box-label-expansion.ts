@@ -1,5 +1,6 @@
 import type { SchematicBoxPlacement } from "../types"
 import {
+  getLabelMovementFactor,
   MINIMUM_LABEL_BANK_GAP,
   schematicLabelRectsOverlap,
   type LabelRect,
@@ -8,25 +9,14 @@ import {
 type Dimension = "width" | "height"
 type Expansion = { width?: number; height?: number }
 
-const speed = (rect: LabelRect, dimension: Dimension): number =>
-  dimension === "width"
-    ? rect.side === "left"
-      ? -0.5
-      : rect.side === "right"
-        ? 0.5
-        : 0
-    : rect.side === "bottom"
-      ? -0.5
-      : rect.side === "top"
-        ? 0.5
-        : 0
-
 function getRequiredGrowth(
   a: LabelRect,
   b: LabelRect,
   dimension: Dimension,
 ): number {
-  const rate = speed(b, dimension) - speed(a, dimension)
+  const rate =
+    getLabelMovementFactor(b.side, dimension) -
+    getLabelMovementFactor(a.side, dimension)
   if (rate === 0) return Infinity
   const [first, second] = rate > 0 ? [a, b] : [b, a]
   const gap =
@@ -44,7 +34,7 @@ export function getSchematicBoxLabelExpansion(
   const expand = (onlyDimension?: Dimension): Expansion | undefined => {
     let width = box.width
     let height = box.height
-    let rects = labels.map((rect) => ({ ...rect }))
+    const rects = labels.map((rect) => ({ ...rect }))
     const pairCount = (rects.length * (rects.length - 1)) / 2
     for (let iteration = 0; iteration <= pairCount; iteration++) {
       let collision: [LabelRect, LabelRect] | undefined
@@ -82,17 +72,13 @@ export function getSchematicBoxLabelExpansion(
       const delta = next - current
       if (dimension === "width") width = next
       else height = next
-      rects = rects.map((rect) => {
-        const dx = dimension === "width" ? speed(rect, dimension) * delta : 0
-        const dy = dimension === "height" ? speed(rect, dimension) * delta : 0
-        return {
-          ...rect,
-          xMin: rect.xMin + dx,
-          xMax: rect.xMax + dx,
-          yMin: rect.yMin + dy,
-          yMax: rect.yMax + dy,
-        }
-      })
+      const minKey = dimension === "width" ? "xMin" : "yMin"
+      const maxKey = dimension === "width" ? "xMax" : "yMax"
+      for (const rect of rects) {
+        const movement = getLabelMovementFactor(rect.side, dimension) * delta
+        rect[minKey] += movement
+        rect[maxKey] += movement
+      }
     }
   }
   const candidates = [expand("width"), expand("height"), expand()].filter(

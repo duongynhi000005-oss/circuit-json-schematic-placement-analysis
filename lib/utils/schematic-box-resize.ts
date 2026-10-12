@@ -2,6 +2,7 @@ import type { SchematicPort } from "circuit-json"
 import type { SchematicBoxPlacement } from "../types"
 import type { GraphicBounds } from "./schematic-box-graphics"
 import {
+  getLabelMovementFactor,
   getSchematicBoxLabelRects,
   getSchematicPinLabelWidth,
   getSchematicPinLabelText,
@@ -128,12 +129,6 @@ function getContentLimitedDimension(
   const maxKey = dimension === "width" ? "xMax" : "yMax"
   const otherMinKey = dimension === "width" ? "yMin" : "xMin"
   const otherMaxKey = dimension === "width" ? "yMax" : "xMax"
-  const speed = (label: ContentRect): number => {
-    if (dimension === "width") {
-      return label.side === "left" ? -0.5 : label.side === "right" ? 0.5 : 0
-    }
-    return label.side === "bottom" ? -0.5 : label.side === "top" ? 0.5 : 0
-  }
   let minimum = 0
   const constrainGap = (gap: number, rate: number, requiredGap = 0) => {
     // A gap with zero/negative rate cannot get smaller during a shrink.
@@ -150,8 +145,9 @@ function getContentLimitedDimension(
   if (graphics) labels.push(graphics)
   for (let i = 0; i < labels.length; i++) {
     const a = labels[i]!
-    constrainGap(a[minKey] - (center - current / 2), speed(a) + 0.5)
-    constrainGap(center + current / 2 - a[maxKey], 0.5 - speed(a))
+    const movement = getLabelMovementFactor(a.side, dimension)
+    constrainGap(a[minKey] - (center - current / 2), movement + 0.5)
+    constrainGap(center + current / 2 - a[maxKey], 0.5 - movement)
     for (let j = i + 1; j < labels.length; j++) {
       const b = labels[j]!
       const requiredGap =
@@ -173,7 +169,8 @@ function getContentLimitedDimension(
       const [first, second] = a[maxKey] <= b[minKey] ? [a, b] : [b, a]
       constrainGap(
         second[minKey] - first[maxKey],
-        speed(second) - speed(first),
+        getLabelMovementFactor(second.side, dimension) -
+          getLabelMovementFactor(first.side, dimension),
         requiredGap,
       )
     }

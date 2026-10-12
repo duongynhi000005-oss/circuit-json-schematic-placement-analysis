@@ -1,4 +1,5 @@
 import type { SchematicPort } from "circuit-json"
+import { getUnitVectorFromDirection } from "@tscircuit/math-utils"
 import type {
   SchematicBoxPlacement,
   SchematicSide,
@@ -23,6 +24,18 @@ export const INNER_LABEL_COLLISION_PADDING = 0.02
 // Readable clearance between labels on different sides, in schematic units.
 export const MINIMUM_LABEL_BANK_GAP = 0.2
 const COLLISION_COMPARISON_EPSILON = 1e-9
+
+/** With a fixed box center, an edge moves half the dimension change.
+ * An undefined side represents stationary internal graphics. */
+export function getLabelMovementFactor(
+  side: SchematicSide | undefined,
+  dimension: "width" | "height",
+): number {
+  if (!side) return 0
+  const direction = side === "top" ? "up" : side === "bottom" ? "down" : side
+  const vector = getUnitVectorFromDirection(direction)
+  return (dimension === "width" ? vector.x : vector.y) / 2
+}
 
 /** Mirror the renderer's display syntax, without inferring any electrical role.
  * Text parts replace the label; N_ is hidden and rendered as an overline. */
