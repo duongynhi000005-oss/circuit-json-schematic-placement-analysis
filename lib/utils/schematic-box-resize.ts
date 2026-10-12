@@ -3,21 +3,25 @@ import type { SchematicBoxPlacement } from "../types"
 import type { GraphicBounds } from "./schematic-box-graphics"
 import {
   getSchematicBoxLabelRects,
+  getSchematicPinLabelWidth,
   INNER_LABEL_COLLISION_PADDING,
+  MINIMUM_LABEL_BANK_GAP,
   schematicLabelIntervalsOverlap,
   schematicLabelRectsOverlap,
   type LabelRect,
 } from "./schematic-box-labels"
 
-// Schematic units: leave readable space between label banks on different sides.
-// Same-side labels retain their pin spacing; resizing does not separate them.
-const MINIMUM_RESIZE_LABEL_BANK_GAP = 0.2
 type ContentRect = GraphicBounds & Partial<Pick<LabelRect, "side">>
 
 /** Native pin labels use the renderer's 0.15-unit font. Measure their displayed
  * text uniformly; names and electrical roles do not determine text geometry. */
 export const getPinLabelLength = (port: SchematicPort): number =>
   Array.from(port.display_pin_label ?? "").length * 0.095
+
+// Keep the existing conservative column estimate, but never shrink below the
+// glyph bounds used by collision detection (for example, wide uppercase text).
+const getResizePinLabelWidth = (port: SchematicPort): number =>
+  Math.max(getPinLabelLength(port), getSchematicPinLabelWidth(port))
 
 /** Validate joint and single-axis proposals while preserving every pin's position
  * along its edge. Missing side metadata cannot establish a safe resize. */
@@ -31,7 +35,7 @@ export function getSafeSchematicBoxResize(
 ): { width?: number; height?: number } | undefined {
   if (!Number.isFinite(pinSpacing) || pinSpacing <= 0) return
   if (ports.some((port) => !port.side_of_component)) return
-  if (!contentsFit(box, ports, INNER_LABEL_COLLISION_PADDING, graphics)) return
+  if (!contentsFit(box, ports, MINIMUM_LABEL_BANK_GAP, graphics)) return
 
   let minWidth = 0
   let minHeight = 0
@@ -99,7 +103,7 @@ export function getSafeSchematicBoxResize(
         height: candidate.height ?? box.height,
       },
       ports,
-      MINIMUM_RESIZE_LABEL_BANK_GAP,
+      MINIMUM_LABEL_BANK_GAP,
       graphics,
     ),
   )
@@ -137,7 +141,7 @@ function getContentLimitedDimension(
   const labels: ContentRect[] = getSchematicBoxLabelRects(
     box,
     ports,
-    getPinLabelLength,
+    getResizePinLabelWidth,
   )
   if (graphics) labels.push(graphics)
   for (let i = 0; i < labels.length; i++) {
@@ -148,7 +152,7 @@ function getContentLimitedDimension(
       const b = labels[j]!
       const requiredGap =
         a.side && b.side && a.side !== b.side
-          ? MINIMUM_RESIZE_LABEL_BANK_GAP
+          ? MINIMUM_LABEL_BANK_GAP
           : INNER_LABEL_COLLISION_PADDING
       if (
         !schematicLabelIntervalsOverlap(
@@ -184,7 +188,7 @@ function contentsFit(
   const labels: ContentRect[] = getSchematicBoxLabelRects(
     resized,
     ports,
-    getPinLabelLength,
+    getResizePinLabelWidth,
   )
   if (graphics) labels.push(graphics)
   for (let i = 0; i < labels.length; i++) {

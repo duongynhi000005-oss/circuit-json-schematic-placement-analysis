@@ -51,7 +51,7 @@ test("moving only L1 beside U1 preserves the complete Stride connectivity", asyn
     SchematicTextCollision: 1,
     RailPathTooSpreadOut: 2,
   })
-  expect(analysis.getIssues()).toHaveLength(33)
+  expect(analysis.getIssues()).toHaveLength(34)
   expect(
     createSchematicAnalysisFixtureSvg({
       circuitJson: after,

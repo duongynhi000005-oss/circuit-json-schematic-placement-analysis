@@ -38,7 +38,14 @@ test("reports the motor-driver sheet's inner pin-label collision", async () => {
     {
       lineItemType: "SchematicBoxInnerLabelCollision",
       schematicBox: { sourceComponentName: "DRIVER" },
-      overlappingSides: ["left", "top"],
+      overlappingSides: ["left", "right", "top", "bottom"],
+    },
+    {
+      lineItemType: "SchematicBoxInnerLabelCollision",
+      schematicBox: { sourceComponentName: "Q_PD_ENABLE" },
+      overlappingSides: ["left", "right"],
+      minimumLabelGap: 0.2,
+      suggestedSchWidth: 1.24,
     },
   ])
   await expect(

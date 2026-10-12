@@ -30,12 +30,24 @@ test("generates a four-sided inner label collision issue", async () => {
       },
       overlappingSides: ["left", "right", "top", "bottom"],
       message:
-        "Inner labels are colliding. Increase the schWidth or schHeight.",
+        "Inner labels overlap or are too close. Increase the schWidth and schHeight to leave at least 0.2 schematic units between labels on these sides.",
     },
   ])
   expect(analysis.toString()).toContain(
-    '<SchematicBoxInnerLabelCollision message="Inner labels are colliding. Increase the schWidth or schHeight." componentName="U2" currentSchWidth="1.25" currentSchHeight="2" overlappingSides="left,right,top,bottom" />',
+    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schWidth and schHeight to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="1.25" currentSchHeight="2" overlappingSides="left,right,top,bottom" minimumLabelGap="0.2" suggestedSchWidth="2.325" suggestedSchHeight="2.311" />',
   )
+  const collision = collisionIssues[0]!
+  expect(collision.suggestedSchWidth).toBe(2.325)
+  expect(collision.suggestedSchHeight).toBe(2.311)
+  const resized = await createSchematicBoxInnerLabelCollisionCircuitJson({
+    schWidth: collision.suggestedSchWidth,
+    schHeight: collision.suggestedSchHeight,
+  })
+  expect(
+    analyzeSchematicPlacement(resized).getIssues({
+      issueTypes: ["SchematicBoxInnerLabelCollision"],
+    }),
+  ).toHaveLength(0)
 
   expect(
     createSchematicAnalysisFixtureSvg({

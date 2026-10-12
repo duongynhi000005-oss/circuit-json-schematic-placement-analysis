@@ -99,6 +99,11 @@ export interface SchematicBoxInnerLabelCollision {
   lineItemType: "SchematicBoxInnerLabelCollision"
   schematicBox: SchematicBoxPlacement
   overlappingSides: SchematicSide[]
+  /** Required clearance between different-side pin labels, in schematic units. */
+  minimumLabelGap: number
+  /** Apply the suggested dimensions together, keeping pins along their edges. */
+  suggestedSchWidth?: number
+  suggestedSchHeight?: number
   message: string
 }
 

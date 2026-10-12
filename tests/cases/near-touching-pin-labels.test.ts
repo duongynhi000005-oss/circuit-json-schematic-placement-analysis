@@ -1,0 +1,73 @@
+import { expect, test } from "bun:test"
+import { analyzeSchematicPlacement } from "lib/index"
+import { createNearTouchingPinLabelsCircuitJson } from "../assets/near-touching-pin-labels"
+import { createSchematicAnalysisFixtureSvg } from "../fixtures/create-schematic-analysis-fixture-svg"
+import { measureLabelBankGap } from "../fixtures/measure-label-bank-gap"
+
+test("reports near-touching staggered pin labels and suggests a padded size on their axis", async () => {
+  for (const vertical of [false, true]) {
+    // SOURCE + DRAIN glyph widths total 1.0425; body-edge insets total 0.2.
+    // A 1.3-unit body leaves 0.0575 between the text bounds, without overlap.
+    for (const dimension of [1.2, 1.3, 1.4424, 1.4425, 1.5]) {
+      const circuitJson = await createNearTouchingPinLabelsCircuitJson({
+        vertical,
+        dimension,
+      })
+      const original = JSON.stringify(circuitJson)
+      const analysis = analyzeSchematicPlacement(circuitJson, {
+        issueTypes: ["SchematicBoxInnerLabelCollision"],
+      })
+      const issues = analysis.getIssues({
+        issueTypes: ["SchematicBoxInnerLabelCollision"],
+      })
+      expect(JSON.stringify(circuitJson)).toBe(original)
+      if (dimension >= 1.4425) {
+        expect(issues).toHaveLength(0)
+        continue
+      }
+      expect(issues).toHaveLength(1)
+      const issue = issues[0]!
+      if (issue.lineItemType !== "SchematicBoxInnerLabelCollision")
+        throw Error()
+      expect(issue.overlappingSides).toEqual(
+        vertical ? ["top", "bottom"] : ["left", "right"],
+      )
+      expect(issue.minimumLabelGap).toBe(0.2)
+      expect(
+        vertical ? issue.suggestedSchHeight : issue.suggestedSchWidth,
+      ).toBe(1.443)
+      expect(
+        vertical ? issue.suggestedSchWidth : issue.suggestedSchHeight,
+      ).toBe(undefined)
+      expect(analysis.toString()).toContain('minimumLabelGap="0.2"')
+      expect(analysis.toString()).toContain(
+        `${vertical ? "suggestedSchHeight" : "suggestedSchWidth"}="1.443"`,
+      )
+      const resized = await createNearTouchingPinLabelsCircuitJson({
+        vertical,
+        dimension: 1.443,
+      })
+      const resizedAnalysis = analyzeSchematicPlacement(resized, {
+        issueTypes: ["SchematicBoxInnerLabelCollision"],
+      })
+      expect(resizedAnalysis.getIssues()).toHaveLength(0)
+      expect(measureLabelBankGap(resized)).toBeGreaterThanOrEqual(0.2)
+      if (dimension !== 1.3) continue
+      expect(measureLabelBankGap(circuitJson)).toBeCloseTo(0.0575)
+      for (const [stage, json, result] of [
+        ["before", circuitJson, analysis],
+        ["after", resized, resizedAnalysis],
+      ] as const) {
+        expect(
+          createSchematicAnalysisFixtureSvg({
+            circuitJson: json,
+            analysis: result,
+          }),
+        ).toMatchSvgSnapshot(
+          import.meta.path,
+          `${vertical ? "top-bottom" : "left-right"}-${stage}`,
+        )
+      }
+    }
+  }
+})

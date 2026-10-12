@@ -60,7 +60,8 @@ test("records the real USB hub four-pin crystal load network", () => {
       lineItemType: "SchematicBoxInnerLabelCollision",
       schematicBox: { sourceComponentName: "U13" },
       overlappingSides: ["left", "right"],
-      message: "Inner labels are colliding. Increase the schWidth.",
+      message:
+        "Inner labels overlap or are too close. Increase the schWidth to leave at least 0.2 schematic units between labels on these sides.",
     },
   ])
   expect(

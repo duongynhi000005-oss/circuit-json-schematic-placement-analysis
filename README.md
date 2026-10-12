@@ -13,6 +13,14 @@ output. Each result contains issue nodes and, when useful,
 `<SchematicBoxPlacement />` rows for the components involved in those issues.
 Circuits without issues produce an empty string.
 
+`SchematicBoxInnerLabelCollision` also reports pin labels on different sides
+that are less than 0.2 schematic units apart. Its `overlappingSides` identifies
+the affected sides, and `minimumLabelGap` records the required clearance.
+Apply `suggestedSchWidth` and/or `suggestedSchHeight` together to separate those
+labels with that padding, preserving each pin's position along its edge. The
+suggestions are rounded upward to three decimals so the XML output retains
+the required gap. Labels on the same side keep their existing pin spacing.
+
 ## Install
 
 Install directly from GitHub codeload:

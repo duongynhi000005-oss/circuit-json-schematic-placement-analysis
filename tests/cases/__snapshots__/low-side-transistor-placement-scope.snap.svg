@@ -1,4 +1,4 @@
-<svg width="1200" height="834" viewBox="0 0 1200 834" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
+<svg width="1200" height="856" viewBox="0 0 1200 856" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
   <g transform="translate(0, 0)">
     <style>
               .boundary { fill: rgb(245, 241, 237); }
@@ -35,9 +35,10 @@
     <tspan x="18" dy="22">  height=&quot;0.8&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;/SchematicBoxPositions&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels are colliding. Increase the schHeight.&quot;</tspan>
+    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
+    <tspan x="18" dy="22">  schHeight to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
     <tspan x="18" dy="22">  componentName=&quot;BZ1&quot; currentSchWidth=&quot;0.5&quot; currentSchHeight=&quot;0.8&quot; overlappingSides=&quot;top,bottom&quot;</tspan>
-    <tspan x="18" dy="22">  /&gt;</tspan>
+    <tspan x="18" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;1.003&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;/SchematicPlacementIssues&gt;</tspan>
 </text>
   </g>

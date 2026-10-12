@@ -1,5 +1,6 @@
 import type { SchematicPort } from "circuit-json"
 import type { SchematicBoxPlacement, SchematicSide } from "../types"
+import { getSchematicTextWidth } from "./schematic-text-geometry"
 
 export interface LabelRect {
   side: SchematicSide
@@ -13,7 +14,12 @@ export interface LabelRect {
 const PIN_LABEL_EDGE_PADDING = 0.1
 const PIN_LABEL_TEXT_HEIGHT = 0.15
 export const INNER_LABEL_COLLISION_PADDING = 0.02
+// Readable clearance between labels on different sides, in schematic units.
+export const MINIMUM_LABEL_BANK_GAP = 0.2
 const COLLISION_COMPARISON_EPSILON = 1e-9
+
+export const getSchematicPinLabelWidth = (port: SchematicPort): number =>
+  getSchematicTextWidth(port.display_pin_label ?? "", PIN_LABEL_TEXT_HEIGHT)
 
 export function getSchematicBoxLabelRects(
   box: SchematicBoxPlacement,

@@ -90,9 +90,10 @@ test("reproduces the complete magnetic-shutter Power sheet with separated parall
   const analysis = analyzeSchematicPlacement(circuitJson)
   expect(analysis.getIssues().map((issue) => issue.lineItemType)).toEqual([
     "ParallelRcNotAligned",
+    "SchematicBoxInnerLabelCollision",
     "ResistorSeparatedFromChipPin",
   ])
-  expect(analysis.getIssues()[1]).toMatchObject({
+  expect(analysis.getIssues()[2]).toMatchObject({
     resistorSchematicBox: { sourceComponentName: "R9" },
   })
   expect(analysis.getIssues()[0]).toMatchObject({

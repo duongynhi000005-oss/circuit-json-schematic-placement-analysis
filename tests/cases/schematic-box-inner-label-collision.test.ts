@@ -26,11 +26,20 @@ test("generates an inner label collision issue for a chip", async () => {
         height: 2,
       },
       overlappingSides: ["top", "bottom"],
-      message: "Inner labels are colliding. Increase the schHeight.",
+      message:
+        "Inner labels overlap or are too close. Increase the schHeight to leave at least 0.2 schematic units between labels on these sides.",
     },
   ])
-  expect(collisionIssues[0]).not.toHaveProperty("suggestedWidth")
-  expect(collisionIssues[0]).not.toHaveProperty("suggestedHeight")
+  expect(collisionIssues[0]!.suggestedSchWidth).toBeUndefined()
+  expect(collisionIssues[0]!.suggestedSchHeight).toBe(2.311)
+  const resized = await createSchematicBoxInnerLabelCollisionCircuitJson({
+    schHeight: collisionIssues[0]!.suggestedSchHeight,
+  })
+  expect(
+    analyzeSchematicPlacement(resized).getIssues({
+      issueTypes: ["SchematicBoxInnerLabelCollision"],
+    }),
+  ).toHaveLength(0)
   expect(collisionIssues[0]).not.toHaveProperty(
     "measuredInnerLabelHorizontalOverlap",
   )
@@ -39,7 +48,7 @@ test("generates an inner label collision issue for a chip", async () => {
   )
 
   expect(analysis.toString()).toContain(
-    '<SchematicBoxInnerLabelCollision message="Inner labels are colliding. Increase the schHeight." componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" />',
+    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schHeight to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.2" suggestedSchHeight="2.311" />',
   )
 
   expect(

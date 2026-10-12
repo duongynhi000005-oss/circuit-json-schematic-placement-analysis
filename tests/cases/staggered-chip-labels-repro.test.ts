@@ -30,7 +30,7 @@ test("reproduces missed staggered chip labels on opposing sides", async () => {
       lineItemType: "SchematicBoxInnerLabelCollision",
       schematicBox: { sourceComponentName: "SW3" },
       overlappingSides: vertical ? ["top", "bottom"] : ["left", "right"],
-      message: `Inner labels are colliding. Increase the ${vertical ? "schHeight" : "schWidth"}.`,
+      message: `Inner labels overlap or are too close. Increase the ${vertical ? "schHeight" : "schWidth"} to leave at least 0.2 schematic units between labels on these sides.`,
     })
     expect(
       analyzeSchematicPlacement(circuitJson).getIssueCounts()

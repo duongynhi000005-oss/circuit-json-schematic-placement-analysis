@@ -50,7 +50,7 @@ test("reproduces the complete reading-lamp Light sheet with a scattered six-LED 
     "led_left",
   )
   const analysis = analyzeSchematicPlacement(circuitJson)
-  expect(analysis.getIssues()).toHaveLength(1)
+  expect(analysis.getIssues()).toHaveLength(2)
   const issue = analysis.getIssues()[0]!
   if (issue.lineItemType !== "SeriesLedChainNotOrdered")
     throw new Error("Missing LED chain issue")

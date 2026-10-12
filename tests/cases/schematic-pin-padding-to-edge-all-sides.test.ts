@@ -30,7 +30,7 @@ test("generates schematic pin padding to edge issues for labels on all sides", a
       10,
     )
   }
-  expect(issue.suggestedSchWidth).toBeCloseTo(0.97, 10)
+  expect(issue.suggestedSchWidth).toBeCloseTo(1.003, 10)
   expect(issue.suggestedSchHeight).toBeUndefined()
   expect(issue.message).toEndWith("width")
   expect(
@@ -51,7 +51,7 @@ test("generates schematic pin padding to edge issues for labels on all sides", a
     )
   expect(remaining).toHaveLength(1)
   expect(remaining[0]!.suggestedSchWidth).toBeUndefined()
-  expect(remaining[0]!.suggestedSchHeight).toBeCloseTo(2.09)
+  expect(remaining[0]!.suggestedSchHeight).toBeCloseTo(2.156)
   expect(
     new Set(remaining[0]!.paddingDetails!.map((detail) => detail.pinSide)),
   ).toEqual(new Set(["left", "right"]))

@@ -1,10 +1,12 @@
 import {
   getSchematicBoxLabelRects,
+  getSchematicPinLabelWidth,
+  MINIMUM_LABEL_BANK_GAP,
   schematicLabelRectsOverlap,
   type LabelRect,
 } from "../../utils/schematic-box-labels"
 import { getSchematicBoxComponentIds } from "../../utils/schematic-box-components"
-import { getSchematicTextWidth } from "../../utils/schematic-text-geometry"
+import { getSchematicBoxLabelExpansion } from "../../utils/schematic-box-label-expansion"
 import { BaseSolver } from "@tscircuit/solver-utils"
 import type { CircuitJson, SchematicPort } from "circuit-json"
 import type {
@@ -56,19 +58,25 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
 
     // Box labels use the renderer's default 0.15-unit sans-serif font.
     // Glyph widths matter even when opposing banks are staggered by half a pin.
-    const labelRects = getSchematicBoxLabelRects(schematicBox, ports, (port) =>
-      getSchematicTextWidth(port.display_pin_label!, 0.15),
+    const labelRects = getSchematicBoxLabelRects(
+      schematicBox,
+      ports,
+      getSchematicPinLabelWidth,
     )
     if (labelRects.length === 0) return
 
     const collisionSummary = this.getCollisionSummary(labelRects)
     if (collisionSummary.overlappingSides.length === 0) return
+    const expansion = getSchematicBoxLabelExpansion(schematicBox, labelRects)
 
     this.params.issues.push({
       lineItemType: "SchematicBoxInnerLabelCollision",
       schematicBox,
       overlappingSides: collisionSummary.overlappingSides,
-      message: this.getMessage(collisionSummary.overlappingSides),
+      minimumLabelGap: MINIMUM_LABEL_BANK_GAP,
+      suggestedSchWidth: expansion?.width,
+      suggestedSchHeight: expansion?.height,
+      message: this.getMessage(collisionSummary.overlappingSides, expansion),
     })
   }
 
@@ -79,16 +87,29 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
     addAttr(attrs, "currentSchWidth", issue.schematicBox.width)
     addAttr(attrs, "currentSchHeight", issue.schematicBox.height)
     addAttr(attrs, "overlappingSides", issue.overlappingSides.join(","))
+    addAttr(attrs, "minimumLabelGap", issue.minimumLabelGap)
+    addAttr(attrs, "suggestedSchWidth", issue.suggestedSchWidth)
+    addAttr(attrs, "suggestedSchHeight", issue.suggestedSchHeight)
     return `<SchematicBoxInnerLabelCollision ${attrs.join(" ")} />`
   }
 
-  private getMessage(sides: SchematicSide[]): string {
-    const dimension = sides.every((side) => side === "left" || side === "right")
-      ? "schWidth"
-      : sides.every((side) => side === "top" || side === "bottom")
-        ? "schHeight"
-        : "schWidth or schHeight"
-    return `Inner labels are colliding. Increase the ${dimension}.`
+  private getMessage(
+    sides: SchematicSide[],
+    expansion?: { width?: number; height?: number },
+  ): string {
+    const dimension =
+      expansion?.width && expansion.height
+        ? "schWidth and schHeight"
+        : expansion?.width
+          ? "schWidth"
+          : expansion?.height
+            ? "schHeight"
+            : sides.every((side) => side === "left" || side === "right")
+              ? "schWidth"
+              : sides.every((side) => side === "top" || side === "bottom")
+                ? "schHeight"
+                : "schWidth or schHeight"
+    return `Inner labels overlap or are too close. Increase the ${dimension} to leave at least ${MINIMUM_LABEL_BANK_GAP} schematic units between labels on these sides.`
   }
 
   private isSchematicPort(el: CircuitJson[number]): el is SchematicPort {
@@ -136,7 +157,7 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
         const b = rects[j]!
         if (a.side === b.side) continue
 
-        if (!schematicLabelRectsOverlap(a, b)) continue
+        if (!schematicLabelRectsOverlap(a, b, MINIMUM_LABEL_BANK_GAP)) continue
 
         overlappingSides.add(a.side)
         overlappingSides.add(b.side)
