@@ -66,7 +66,17 @@ const chipNets = [
   "V3V3",
 ]
 
-export default function PocketAudioDac() {
+export default function PocketAudioDac({
+  groupFilters = false,
+}: {
+  groupFilters?: boolean
+}) {
+  const moved: Record<string, { x: number; y: number }> = groupFilters
+    ? {
+        C_FILTER_L: { x: -14.3, y: -16.3 },
+        C_FILTER_R: { x: -10.8, y: -16.3 },
+      }
+    : {}
   return (
     <board schLayout={{ layoutMode: "relative" }}>
       <net name="V3V3" isPowerNet />
@@ -112,8 +122,8 @@ export default function PocketAudioDac() {
           name={name}
           capacitance={capacitance}
           maxVoltageRating="16V"
-          schX={x}
-          schY={y}
+          schX={moved[name]?.x ?? x}
+          schY={moved[name]?.y ?? y}
           schSectionName="DAC"
           schSheetName="DAC"
           schOrientation={first === "GND" ? "pos_bottom" : "pos_top"}
@@ -145,10 +155,10 @@ export default function PocketAudioDac() {
   )
 }
 
-export async function createPocketAudioDac() {
+export async function createPocketAudioDac(groupFilters = false) {
   const circuit = new Circuit()
   circuit.pcbDisabled = true
-  circuit.add(<PocketAudioDac />)
+  circuit.add(<PocketAudioDac groupFilters={groupFilters} />)
   await circuit.renderUntilSettled()
   return circuit.getCircuitJson()
 }

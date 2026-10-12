@@ -78,13 +78,30 @@ test("reproduces the complete pocket audio DAC sheet with separated output RC fi
     "ResistorSeparatedFromChipPin",
     "CapacitorSeparatedFromChipPins",
     "RailPathTooSpreadOut",
+    "SeriesRcFilterComponentsNotGrouped",
+    "SeriesRcFilterComponentsNotGrouped",
   ])
-  expect(
-    createSchematicAnalysisFixtureSvg({
-      circuitJson,
-      analysis,
-      width: 1500,
-      height: 1500,
-    }),
-  ).toMatchSvgSnapshot(import.meta.path, "full-sheet")
+  const filters = analysis.getIssues({
+    issueTypes: ["SeriesRcFilterComponentsNotGrouped"],
+  })
+  expect(filters).toMatchObject([
+    {
+      resistorSchematicBox: { sourceComponentName: "R_DAC_L" },
+      capacitorSchematicBox: { sourceComponentName: "C_FILTER_L" },
+    },
+    {
+      resistorSchematicBox: { sourceComponentName: "R_DAC_R" },
+      capacitorSchematicBox: { sourceComponentName: "C_FILTER_R" },
+    },
+  ])
+  const svg = createSchematicAnalysisFixtureSvg({
+    circuitJson,
+    analysis,
+    width: 1500,
+    height: 1500,
+    highlightIssues: ["SeriesRcFilterComponentsNotGrouped"],
+  })
+  expect([...svg.matchAll(/class="issue-marker"/g)]).toHaveLength(4)
+  expect([...svg.matchAll(/data-listing-issue-number=/g)]).toHaveLength(2)
+  expect(svg).toMatchSvgSnapshot(import.meta.path, "full-sheet")
 })

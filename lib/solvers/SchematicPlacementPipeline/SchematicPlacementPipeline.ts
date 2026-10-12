@@ -1,3 +1,4 @@
+import { SeriesRcFilterPlacementSolver } from "../SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
 import { TransistorRailOrientationSolver } from "../TransistorRailOrientationSolver/TransistorRailOrientationSolver"
 import { ChipSupplyInductorPlacementSolver } from "../ChipSupplyInductorPlacementSolver/ChipSupplyInductorPlacementSolver"
 import { SharedNodeDiodePlacementSolver } from "../SharedNodeDiodePlacementSolver/SharedNodeDiodePlacementSolver"
@@ -82,6 +83,7 @@ const solversByIssueType = {
   SchematicBoxInnerLabelCollision: [SchematicBoxInnerLabelCollisionSolver],
   SchematicPinPaddingToEdgeTooLarge: [SchematicPinPaddingToEdgeSolver],
   DiodeResistorNotAligned: [DiodeResistorAlignmentSolver],
+  SeriesRcFilterComponentsNotGrouped: [SeriesRcFilterPlacementSolver],
   ParallelRcNotAligned: [ParallelRcPlacementSolver],
   ParallelDiodeResistorNotAligned: [ParallelDiodeResistorPlacementSolver],
   ComponentPinsWouldAlignWithVerticalShift: [ComponentPinAlignmentSolver],
@@ -390,6 +392,13 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
           maxSpan: p.railPathVisibility?.maxSpan,
           maxLength: p.railPathVisibility?.maxPathLength,
         },
+      ],
+    ),
+    definePipelineStep(
+      "SeriesRcFilterPlacementSolver",
+      SeriesRcFilterPlacementSolver,
+      (p: SchematicPlacementPipeline): [SolverParams] => [
+        { ctx: p.ctx, issues: p.issues },
       ],
     ),
   ]

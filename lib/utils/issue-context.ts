@@ -177,6 +177,7 @@ export const getRelevantPlacementsForIssues = ({
           addComponentName(getComponentNameFromPin(pin), issue.schematicSheetId)
         }
         break
+      case "SeriesRcFilterComponentsNotGrouped":
       case "ParallelRcNotAligned":
         addPlacement(issue.resistorSchematicBox)
         addPlacement(issue.capacitorSchematicBox)
