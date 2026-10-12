@@ -38,14 +38,7 @@ test("moving only the six LEDs into connected order clears the finding without c
     ),
   )
   const analysis = analyzeSchematicPlacement(after)
-  expect(analysis.getIssues()).toMatchObject([
-    {
-      lineItemType: "SchematicBoxInnerLabelCollision",
-      schematicBox: { sourceComponentName: "U6" },
-      overlappingSides: ["left", "right"],
-      minimumLabelGap: 0.2,
-    },
-  ])
+  expect(analysis.getIssues()).toEqual([])
   expect(
     createSchematicAnalysisFixtureSvg({
       circuitJson: after,

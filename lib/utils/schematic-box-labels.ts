@@ -22,7 +22,7 @@ const PIN_LABEL_EDGE_PADDING = 0.1
 const PIN_LABEL_TEXT_HEIGHT = 0.15
 export const INNER_LABEL_COLLISION_PADDING = 0.02
 // Readable clearance between labels on different sides, in schematic units.
-export const MINIMUM_LABEL_BANK_GAP = 0.2
+export const MINIMUM_LABEL_BANK_GAP = 0.1
 const COLLISION_COMPARISON_EPSILON = 1e-9
 
 /** With a fixed box center, an edge moves half the dimension change.

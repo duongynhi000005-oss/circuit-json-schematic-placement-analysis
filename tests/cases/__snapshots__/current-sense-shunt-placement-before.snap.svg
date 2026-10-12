@@ -23,9 +23,9 @@
     <tspan x="18" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels REF2 (top) and OUT (right) are too close.</tspan>
     <tspan x="18" dy="22">  Labels VS (top) and IN_POS (left) are too close. Increase the schWidth and schHeight to leave</tspan>
-    <tspan x="18" dy="22">  at least 0.2 schematic units between these labels.&quot; componentName=&quot;U1&quot; currentSchWidth=&quot;2&quot;</tspan>
-    <tspan x="18" dy="22">  currentSchHeight=&quot;1.71&quot; overlappingSides=&quot;left,right,top&quot; minimumLabelGap=&quot;0.2&quot;</tspan>
-    <tspan x="18" dy="22">  suggestedSchWidth=&quot;2.353&quot; suggestedSchHeight=&quot;2.002&quot;&gt;</tspan>
+    <tspan x="18" dy="22">  at least 0.1 schematic units between these labels.&quot; componentName=&quot;U1&quot; currentSchWidth=&quot;2&quot;</tspan>
+    <tspan x="18" dy="22">  currentSchHeight=&quot;1.71&quot; overlappingSides=&quot;left,right,top&quot; minimumLabelGap=&quot;0.1&quot;</tspan>
+    <tspan x="18" dy="22">  suggestedSchWidth=&quot;2.153&quot; suggestedSchHeight=&quot;1.802&quot;&gt;</tspan>
     <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;REF2&quot; label2=&quot;OUT&quot; port1=&quot;schematic_port_4&quot; port2=&quot;schematic_port_6&quot;</tspan>
     <tspan x="18" dy="22">  side1=&quot;top&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.024&quot; /&gt;</tspan>
     <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VS&quot; label2=&quot;IN_POS&quot; port1=&quot;schematic_port_7&quot; port2=&quot;schematic_port_9&quot;</tspan>

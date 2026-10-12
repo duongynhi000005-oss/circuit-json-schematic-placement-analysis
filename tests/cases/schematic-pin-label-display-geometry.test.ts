@@ -83,7 +83,7 @@ test("measures visible pin text with the renderer's font size and display syntax
   ]
   for (const variant of variants) {
     const circuitJson = await createNearTouchingPinLabelsCircuitJson({
-      dimension: 1.4,
+      dimension: 1.3,
     })
     const port = circuitJson.find(
       (element) =>

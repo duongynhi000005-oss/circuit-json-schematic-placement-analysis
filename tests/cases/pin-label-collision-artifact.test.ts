@@ -5,7 +5,7 @@ import { createNearTouchingPinLabelsCircuitJson } from "../assets/near-touching-
 
 test("highlights both implicated pin labels in issue artifacts and lists each pair", async () => {
   for (const vertical of [false, true]) {
-    for (const dimension of [1.2, 1.3]) {
+    for (const dimension of [1.1, 1.3]) {
       const circuitJson = await createNearTouchingPinLabelsCircuitJson({
         vertical,
         dimension,
@@ -24,7 +24,7 @@ test("highlights both implicated pin labels in issue artifacts and lists each pa
           .labelPairs!.flatMap((pair) => [pair.firstLabel, pair.secondLabel])
           .map((label) => [label.schematicPortId, label]),
       )
-      expect(labels.size).toBe(dimension === 1.2 ? 3 : 2)
+      expect(labels.size).toBe(dimension === 1.1 ? 3 : 2)
       const nodes = [] as ReturnType<typeof parseSync>[]
       const visit = (node: ReturnType<typeof parseSync>) => {
         if (node.attributes.class === "pin-label-collision-highlight")
@@ -56,13 +56,13 @@ test("highlights both implicated pin labels in issue artifacts and lists each pa
         '<PinLabelPair label1="SOURCE" label2="DRAIN"',
       )
       expect(artifact.descriptionXml).toContain(
-        `kind="${dimension === 1.2 ? "overlap" : "clearance"}"`,
+        `kind="${dimension === 1.1 ? "overlap" : "clearance"}"`,
       )
       if (dimension === 1.3)
         expect(artifact.content).not.toContain('data-highlight-label="GATE"')
       expect(artifact.content).toMatchSvgSnapshot(
         import.meta.path,
-        `${vertical ? "top-bottom" : "left-right"}-${dimension === 1.2 ? "overlap" : "clearance"}`,
+        `${vertical ? "top-bottom" : "left-right"}-${dimension === 1.1 ? "overlap" : "clearance"}`,
       )
     }
   }

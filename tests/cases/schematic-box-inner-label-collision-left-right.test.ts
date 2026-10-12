@@ -22,7 +22,7 @@ test("generates a left-right inner label collision issue", async () => {
 
   expect(collisionIssues).toHaveLength(1)
   const message =
-    "Labels ADC_AVDD (right) and VDD (left) are too close. Labels ADC_AVDD (right) and VDV (left) overlap. Increase the schWidth to leave at least 0.2 schematic units between these labels."
+    "Labels ADC_AVDD (right) and VDD (left) are too close. Labels ADC_AVDD (right) and VDV (left) overlap. Increase the schWidth to leave at least 0.1 schematic units between these labels."
   expect(collisionIssues).toMatchObject([
     {
       lineItemType: "SchematicBoxInnerLabelCollision",
@@ -36,7 +36,7 @@ test("generates a left-right inner label collision issue", async () => {
     },
   ])
   expect(analysis.toString()).toContain(
-    `<SchematicBoxInnerLabelCollision message="${escapeAttr(message)}" componentName="U2" currentSchWidth="1.25" currentSchHeight="4" overlappingSides="left,right" minimumLabelGap="0.2" suggestedSchWidth="1.489">`,
+    `<SchematicBoxInnerLabelCollision message="${escapeAttr(message)}" componentName="U2" currentSchWidth="1.25" currentSchHeight="4" overlappingSides="left,right" minimumLabelGap="0.1" suggestedSchWidth="1.389">`,
   )
   expect(collisionIssues[0]!.suggestedSchHeight).toBeUndefined()
   const resized = await createSchematicBoxInnerLabelCollisionCircuitJson({

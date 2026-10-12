@@ -37,16 +37,16 @@ test("generates a four-sided inner label collision issue", async () => {
     "Labels ADC_AVDD (right) and VDV (left) overlap.",
   )
   expect(collision.message).toStartWith(
-    "Labels RUN (right) and TOP_AVDD (top) are too close.",
+    "Labels IOVDD (right) and TOP_AVDD (top) are too close.",
   )
   expect(collision.message).toEndWith(
-    "Increase the schWidth and schHeight to leave at least 0.2 schematic units between these labels.",
+    "Increase the schWidth and schHeight to leave at least 0.1 schematic units between these labels.",
   )
   expect(analysis.toString()).toContain(
-    `<SchematicBoxInnerLabelCollision message="${escapeAttr(collision.message)}" componentName="U2" currentSchWidth="1.25" currentSchHeight="2" overlappingSides="left,right,top,bottom" minimumLabelGap="0.2" suggestedSchWidth="2.325" suggestedSchHeight="2.311">`,
+    `<SchematicBoxInnerLabelCollision message="${escapeAttr(collision.message)}" componentName="U2" currentSchWidth="1.25" currentSchHeight="2" overlappingSides="left,right,top,bottom" minimumLabelGap="0.1" suggestedSchWidth="2.125" suggestedSchHeight="2.211">`,
   )
-  expect(collision.suggestedSchWidth).toBe(2.325)
-  expect(collision.suggestedSchHeight).toBe(2.311)
+  expect(collision.suggestedSchWidth).toBe(2.125)
+  expect(collision.suggestedSchHeight).toBe(2.211)
   const resized = await createSchematicBoxInnerLabelCollisionCircuitJson({
     schWidth: collision.suggestedSchWidth,
     schHeight: collision.suggestedSchHeight,

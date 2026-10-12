@@ -1,4 +1,4 @@
-<svg width="1200" height="922" viewBox="0 0 1200 922" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
+<svg width="1200" height="636" viewBox="0 0 1200 636" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
   <g transform="translate(0, 0)">
     <style>
               .boundary { fill: rgb(245, 241, 237); }
@@ -16,19 +16,6 @@
   <g transform="translate(0, 600) scale(1, 1) translate(0, 0)">
     <rect width="100%" height="100%" fill="#fff" />
 <text x="18" y="40" fill="#d00" font-family="Menlo, Consolas, monospace" font-size="16">
-    <tspan x="18" dy="0">&lt;SchematicBoxPositions&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;U1&quot; positionAnchor=&quot;center&quot; schX=&quot;0&quot; schY=&quot;0&quot; width=&quot;1.7&quot;</tspan>
-    <tspan x="18" dy="22">  height=&quot;0.98&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;/SchematicBoxPositions&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels VDD (top) and GND (bottom) are too close.</tspan>
-    <tspan x="18" dy="22">  Increase the schHeight to leave at least 0.2 schematic units between these labels.&quot;</tspan>
-    <tspan x="18" dy="22">  componentName=&quot;U1&quot; currentSchWidth=&quot;1.7&quot; currentSchHeight=&quot;0.98&quot; overlappingSides=&quot;top,bottom&quot;</tspan>
-    <tspan x="18" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;1.003&quot;&gt;</tspan>
-    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VDD&quot; label2=&quot;GND&quot; port1=&quot;schematic_port_0&quot; port2=&quot;schematic_port_7&quot;</tspan>
-    <tspan x="18" dy="22">  side1=&quot;top&quot; side2=&quot;bottom&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.177&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;/SchematicBoxInnerLabelCollision&gt;</tspan>
-    <tspan x="18" dy="22">&lt;/SchematicPlacementIssues&gt;</tspan>
 </text>
   </g>
 </svg>

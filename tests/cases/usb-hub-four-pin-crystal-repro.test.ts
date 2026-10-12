@@ -61,7 +61,7 @@ test("records the real USB hub four-pin crystal load network", () => {
       schematicBox: { sourceComponentName: "U13" },
       overlappingSides: ["left", "right"],
       message:
-        "Labels USB_NEG (left) and VDD18PLL (right) are too close. Labels VDD331 (left) and VDD18PLL (right) are too close. Labels RESET_N (left) and CARD_PWR (right) overlap. Increase the schWidth to leave at least 0.2 schematic units between these labels.",
+        "Labels RESET_N (left) and CARD_PWR (right) overlap. Increase the schWidth to leave at least 0.1 schematic units between these labels.",
     },
   ])
   expect(

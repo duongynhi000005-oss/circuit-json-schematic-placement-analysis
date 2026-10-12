@@ -36,14 +36,7 @@ test("does not report corner padding for centered supply pins", async () => {
   expect(
     analysis.getIssues({ issueTypes: ["SchematicPinPaddingToEdgeTooLarge"] }),
   ).toHaveLength(0)
-  expect(analysis.getIssues()).toMatchObject([
-    {
-      lineItemType: "SchematicBoxInnerLabelCollision",
-      overlappingSides: ["top", "bottom"],
-      minimumLabelGap: 0.2,
-      suggestedSchHeight: 1.003,
-    },
-  ])
+  expect(analysis.getIssues()).toEqual([])
   expect(
     createSchematicAnalysisFixtureSvg({
       circuitJson,

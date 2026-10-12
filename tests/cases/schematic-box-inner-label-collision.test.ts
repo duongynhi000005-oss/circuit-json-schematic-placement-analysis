@@ -19,7 +19,7 @@ test("generates an inner label collision issue for a chip", async () => {
 
   expect(collisionIssues).toHaveLength(1)
   const message =
-    "Labels TOP_AVDD (top) and BOTTOM_DVDD (bottom) overlap. Increase the schHeight to leave at least 0.2 schematic units between these labels."
+    "Labels TOP_AVDD (top) and BOTTOM_DVDD (bottom) overlap. Increase the schHeight to leave at least 0.1 schematic units between these labels."
   expect(collisionIssues).toMatchObject([
     {
       lineItemType: "SchematicBoxInnerLabelCollision",
@@ -33,7 +33,7 @@ test("generates an inner label collision issue for a chip", async () => {
     },
   ])
   expect(collisionIssues[0]!.suggestedSchWidth).toBeUndefined()
-  expect(collisionIssues[0]!.suggestedSchHeight).toBe(2.311)
+  expect(collisionIssues[0]!.suggestedSchHeight).toBe(2.211)
   const resized = await createSchematicBoxInnerLabelCollisionCircuitJson({
     schHeight: collisionIssues[0]!.suggestedSchHeight,
   })
@@ -50,7 +50,7 @@ test("generates an inner label collision issue for a chip", async () => {
   )
 
   expect(analysis.toString()).toContain(
-    `<SchematicBoxInnerLabelCollision message="${escapeAttr(message)}" componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.2" suggestedSchHeight="2.311">`,
+    `<SchematicBoxInnerLabelCollision message="${escapeAttr(message)}" componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.1" suggestedSchHeight="2.211">`,
   )
 
   expect(
