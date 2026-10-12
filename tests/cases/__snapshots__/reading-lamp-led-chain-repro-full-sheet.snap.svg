@@ -60,8 +60,8 @@
     <tspan x="52" dy="22">  behind their pins. Move or rotate the symbols while preserving anode/cathode connections;</tspan>
     <tspan x="52" dy="22">  allow space for labels and reroute affected traces. A horizontal, vertical, or clearly</tspan>
     <tspan x="52" dy="22">  connected folded chain is acceptable.&quot; /&gt;</tspan>
-    <tspan x="52" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
-    <tspan x="52" dy="22">  schWidth to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
+    <tspan x="52" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels CTRL (left) and COMP (right) are too close.</tspan>
+    <tspan x="52" dy="22">  Increase the schWidth to leave at least 0.2 schematic units between these labels.&quot;</tspan>
     <tspan x="52" dy="22">  componentName=&quot;U6&quot; currentSchWidth=&quot;1.2&quot; currentSchHeight=&quot;0.8&quot; overlappingSides=&quot;left,right&quot;</tspan>
     <tspan x="52" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchWidth=&quot;1.239&quot;&gt;</tspan>
     <tspan x="52" dy="22">  &lt;PinLabelPair label1=&quot;CTRL&quot; label2=&quot;COMP&quot; port1=&quot;schematic_port_1&quot; port2=&quot;schematic_port_4&quot;</tspan>

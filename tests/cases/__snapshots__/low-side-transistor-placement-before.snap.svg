@@ -41,9 +41,9 @@
     <tspan x="52" dy="22">  height=&quot;1.04&quot; /&gt;</tspan>
     <tspan x="52" dy="22">&lt;/SchematicBoxPositions&gt;</tspan>
     <tspan x="52" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
-    <tspan x="52" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
-    <tspan x="52" dy="22">  schHeight to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
-    <tspan x="52" dy="22">  componentName=&quot;BZ1&quot; currentSchWidth=&quot;0.5&quot; currentSchHeight=&quot;0.8&quot; overlappingSides=&quot;top,bottom&quot;</tspan>
+    <tspan x="52" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels POS (top) and NEG (bottom) overlap. Increase</tspan>
+    <tspan x="52" dy="22">  the schHeight to leave at least 0.2 schematic units between these labels.&quot; componentName=&quot;BZ1&quot;</tspan>
+    <tspan x="52" dy="22">  currentSchWidth=&quot;0.5&quot; currentSchHeight=&quot;0.8&quot; overlappingSides=&quot;top,bottom&quot;</tspan>
     <tspan x="52" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;1.003&quot;&gt;</tspan>
     <tspan x="52" dy="22">  &lt;PinLabelPair label1=&quot;POS&quot; label2=&quot;NEG&quot; port1=&quot;schematic_port_5&quot; port2=&quot;schematic_port_6&quot;</tspan>
     <tspan x="52" dy="22">  side1=&quot;top&quot; side2=&quot;bottom&quot; kind=&quot;overlap&quot; measuredGap=&quot;0&quot; /&gt;</tspan>

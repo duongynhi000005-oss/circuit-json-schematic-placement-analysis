@@ -80,7 +80,7 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
       labelPairs: collisionSummary.labelPairs,
       suggestedSchWidth: expansion?.width,
       suggestedSchHeight: expansion?.height,
-      message: this.getMessage(collisionSummary.overlappingSides, expansion),
+      message: this.getMessage(collisionSummary, expansion),
     })
   }
 
@@ -112,7 +112,7 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
   }
 
   private getMessage(
-    sides: SchematicSide[],
+    { overlappingSides: sides, labelPairs }: CollisionSummary,
     expansion?: { width?: number; height?: number },
   ): string {
     const dimension =
@@ -127,7 +127,13 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
               : sides.every((side) => side === "top" || side === "bottom")
                 ? "schHeight"
                 : "schWidth or schHeight"
-    return `Inner labels overlap or are too close. Increase the ${dimension} to leave at least ${MINIMUM_LABEL_BANK_GAP} schematic units between labels on these sides.`
+    const conflicts = labelPairs
+      .map(
+        ({ firstLabel: a, secondLabel: b, kind }) =>
+          `Labels ${a.text} (${a.side}) and ${b.text} (${b.side}) ${kind === "overlap" ? "overlap" : "are too close"}.`,
+      )
+      .join(" ")
+    return `${conflicts} Increase the ${dimension} to leave at least ${MINIMUM_LABEL_BANK_GAP} schematic units between these labels.`
   }
 
   private isSchematicPort(el: CircuitJson[number]): el is SchematicPort {

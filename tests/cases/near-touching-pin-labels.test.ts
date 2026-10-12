@@ -8,7 +8,7 @@ test("reports near-touching staggered pin labels and suggests a padded size on t
   for (const vertical of [false, true]) {
     // SOURCE + DRAIN glyph widths total 1.0425; body-edge insets total 0.2.
     // A 1.3-unit body leaves 0.0575 between the text bounds, without overlap.
-    for (const dimension of [1.2, 1.3, 1.4424, 1.4425, 1.5]) {
+    for (const dimension of [1, 1.2, 1.3, 1.4424, 1.4425, 1.5]) {
       const circuitJson = await createNearTouchingPinLabelsCircuitJson({
         vertical,
         dimension,
@@ -33,15 +33,25 @@ test("reports near-touching staggered pin labels and suggests a padded size on t
         vertical ? ["top", "bottom"] : ["left", "right"],
       )
       expect(issue.minimumLabelGap).toBe(0.2)
-      expect(issue.labelPairs).toHaveLength(dimension === 1.2 ? 2 : 1)
+      expect(issue.labelPairs).toHaveLength(dimension <= 1.2 ? 2 : 1)
       const sourcePair = issue.labelPairs!.find(
         (pair) => pair.firstLabel.text === "SOURCE",
       )!
       expect(sourcePair).toMatchObject({
         firstLabel: { text: "SOURCE" },
         secondLabel: { text: "DRAIN" },
-        kind: dimension === 1.2 ? "overlap" : "clearance",
+        kind: dimension <= 1.2 ? "overlap" : "clearance",
       })
+      const sides = vertical ? ["top", "bottom"] : ["left", "right"]
+      expect(issue.message).toContain(
+        `Labels SOURCE (${sides[0]}) and DRAIN (${sides[1]}) ${dimension <= 1.2 ? "overlap" : "are too close"}.`,
+      )
+      if (dimension === 1) expect(issue.message).not.toContain("are too close")
+      if (dimension === 1.2)
+        expect(issue.message).toContain(
+          `Labels GATE (${sides[0]}) and DRAIN (${sides[1]}) are too close.`,
+        )
+      if (dimension > 1.2) expect(issue.message).not.toContain(" overlap.")
       expect(
         vertical ? issue.suggestedSchHeight : issue.suggestedSchWidth,
       ).toBe(1.443)

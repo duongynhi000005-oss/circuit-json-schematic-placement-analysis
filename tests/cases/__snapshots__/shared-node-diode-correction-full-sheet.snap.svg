@@ -1,4 +1,4 @@
-<svg width="1800" height="2270" viewBox="0 0 1800 2270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
+<svg width="1800" height="2336" viewBox="0 0 1800 2336" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
   <g transform="translate(0, 0)">
     <style>
               .boundary { fill: rgb(245, 241, 237); }
@@ -33,10 +33,13 @@
     <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;/SchematicBoxPositions&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
-    <tspan x="18" dy="22">  schHeight to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
-    <tspan x="18" dy="22">  componentName=&quot;U11&quot; currentSchWidth=&quot;1.465&quot; currentSchHeight=&quot;1.75&quot;</tspan>
-    <tspan x="18" dy="22">  overlappingSides=&quot;left,right,top,bottom&quot; minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;2.198&quot;&gt;</tspan>
+    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels NC3 (top) and VS3 (left) are too close. Labels</tspan>
+    <tspan x="18" dy="22">  GND (bottom) and IN (left) are too close. Labels NC2 (top) and OUT3 (right) are too close.</tspan>
+    <tspan x="18" dy="22">  Labels OUT3 (right) and NC1 (top) are too close. Labels OUT2 (right) and DIAG_EN (bottom) are</tspan>
+    <tspan x="18" dy="22">  too close. Labels OUT1 (right) and DIAG_EN (bottom) are too close. Increase the schHeight to</tspan>
+    <tspan x="18" dy="22">  leave at least 0.2 schematic units between these labels.&quot; componentName=&quot;U11&quot;</tspan>
+    <tspan x="18" dy="22">  currentSchWidth=&quot;1.465&quot; currentSchHeight=&quot;1.75&quot; overlappingSides=&quot;left,right,top,bottom&quot;</tspan>
+    <tspan x="18" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;2.198&quot;&gt;</tspan>
     <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;NC3&quot; label2=&quot;VS3&quot; port1=&quot;schematic_port_7&quot; port2=&quot;schematic_port_14&quot;</tspan>
     <tspan x="18" dy="22">  side1=&quot;top&quot; side2=&quot;left&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.115&quot; /&gt;</tspan>
     <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;GND&quot; label2=&quot;IN&quot; port1=&quot;schematic_port_8&quot; port2=&quot;schematic_port_9&quot;</tspan>

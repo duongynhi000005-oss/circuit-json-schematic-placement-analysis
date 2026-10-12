@@ -1,5 +1,6 @@
 import { expect, test } from "bun:test"
 import { analyzeSchematicPlacement } from "lib/index"
+import { escapeAttr } from "lib/utils/format"
 import { createSchematicBoxInnerLabelCollisionCircuitJson } from "../assets/schematic-box-inner-label-collision"
 import { createSchematicAnalysisFixtureSvg } from "../fixtures/create-schematic-analysis-fixture-svg"
 
@@ -17,6 +18,8 @@ test("generates an inner label collision issue for a chip", async () => {
       : []
 
   expect(collisionIssues).toHaveLength(1)
+  const message =
+    "Labels TOP_AVDD (top) and BOTTOM_DVDD (bottom) overlap. Increase the schHeight to leave at least 0.2 schematic units between these labels."
   expect(collisionIssues).toMatchObject([
     {
       lineItemType: "SchematicBoxInnerLabelCollision",
@@ -26,8 +29,7 @@ test("generates an inner label collision issue for a chip", async () => {
         height: 2,
       },
       overlappingSides: ["top", "bottom"],
-      message:
-        "Inner labels overlap or are too close. Increase the schHeight to leave at least 0.2 schematic units between labels on these sides.",
+      message,
     },
   ])
   expect(collisionIssues[0]!.suggestedSchWidth).toBeUndefined()
@@ -48,7 +50,7 @@ test("generates an inner label collision issue for a chip", async () => {
   )
 
   expect(analysis.toString()).toContain(
-    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schHeight to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.2" suggestedSchHeight="2.311">',
+    `<SchematicBoxInnerLabelCollision message="${escapeAttr(message)}" componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.2" suggestedSchHeight="2.311">`,
   )
 
   expect(

@@ -21,8 +21,8 @@
     <tspan x="18" dy="22">  height=&quot;0.8&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;/SchematicBoxPositions&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
-    <tspan x="18" dy="22">  schWidth to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
+    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels CTRL (left) and COMP (right) are too close.</tspan>
+    <tspan x="18" dy="22">  Increase the schWidth to leave at least 0.2 schematic units between these labels.&quot;</tspan>
     <tspan x="18" dy="22">  componentName=&quot;U6&quot; currentSchWidth=&quot;1.2&quot; currentSchHeight=&quot;0.8&quot; overlappingSides=&quot;left,right&quot;</tspan>
     <tspan x="18" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchWidth=&quot;1.239&quot;&gt;</tspan>
     <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;CTRL&quot; label2=&quot;COMP&quot; port1=&quot;schematic_port_1&quot; port2=&quot;schematic_port_4&quot;</tspan>

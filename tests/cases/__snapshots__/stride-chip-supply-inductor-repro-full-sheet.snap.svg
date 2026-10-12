@@ -146,8 +146,8 @@
     <tspan x="52" dy="22">  maxRecommendedDistance=&quot;6&quot; message=&quot;Group R8, C21 near U1.RSTN so the reset pull-up and</tspan>
     <tspan x="52" dy="22">  capacitor can be read together. Preserve all net connections; associated test points may</tspan>
     <tspan x="52" dy="22">  remain in a debug area.&quot; /&gt;</tspan>
-    <tspan x="52" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
-    <tspan x="52" dy="22">  schWidth to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
+    <tspan x="52" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels PMID2 (left) and LSLDO (right) are too close.</tspan>
+    <tspan x="52" dy="22">  Increase the schWidth to leave at least 0.2 schematic units between these labels.&quot;</tspan>
     <tspan x="52" dy="22">  componentName=&quot;U2&quot; currentSchWidth=&quot;1.3&quot; currentSchHeight=&quot;2.2&quot; overlappingSides=&quot;left,right&quot;</tspan>
     <tspan x="52" dy="22">  minimumLabelGap=&quot;0.2&quot; suggestedSchWidth=&quot;1.36&quot;&gt;</tspan>
     <tspan x="52" dy="22">  &lt;PinLabelPair label1=&quot;PMID2&quot; label2=&quot;LSLDO&quot; port1=&quot;schematic_port_46&quot;</tspan>
