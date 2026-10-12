@@ -4,6 +4,8 @@ import type { GraphicBounds } from "./schematic-box-graphics"
 import {
   getSchematicBoxLabelRects,
   getSchematicPinLabelWidth,
+  getSchematicPinLabelText,
+  getSchematicPinLabelFontSize,
   INNER_LABEL_COLLISION_PADDING,
   MINIMUM_LABEL_BANK_GAP,
   schematicLabelIntervalsOverlap,
@@ -13,10 +15,12 @@ import {
 
 type ContentRect = GraphicBounds & Partial<Pick<LabelRect, "side">>
 
-/** Native pin labels use the renderer's 0.15-unit font. Measure their displayed
- * text uniformly; names and electrical roles do not determine text geometry. */
+/** Scale the conservative column estimate with the rendered font size.
+ * Names and electrical roles do not determine text geometry. */
 export const getPinLabelLength = (port: SchematicPort): number =>
-  Array.from(port.display_pin_label ?? "").length * 0.095
+  Array.from(getSchematicPinLabelText(port)).length *
+  0.095 *
+  (getSchematicPinLabelFontSize(port) / 0.15)
 
 // Keep the existing conservative column estimate, but never shrink below the
 // glyph bounds used by collision detection (for example, wide uppercase text).

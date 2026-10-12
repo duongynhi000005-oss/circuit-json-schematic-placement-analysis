@@ -1,4 +1,4 @@
-<svg width="1200" height="878" viewBox="0 0 1200 878" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
+<svg width="1200" height="988" viewBox="0 0 1200 988" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
   <g transform="translate(0, 0)">
     <style>
               .boundary { fill: rgb(245, 241, 237); }
@@ -25,7 +25,12 @@
     <tspan x="18" dy="22">  schWidth and schHeight to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
     <tspan x="18" dy="22">  componentName=&quot;U1&quot; currentSchWidth=&quot;2&quot; currentSchHeight=&quot;1.71&quot;</tspan>
     <tspan x="18" dy="22">  overlappingSides=&quot;left,right,top&quot; minimumLabelGap=&quot;0.2&quot; suggestedSchWidth=&quot;2.353&quot;</tspan>
-    <tspan x="18" dy="22">  suggestedSchHeight=&quot;2.002&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">  suggestedSchHeight=&quot;2.002&quot;&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;REF2&quot; label2=&quot;OUT&quot; port1=&quot;schematic_port_4&quot; port2=&quot;schematic_port_6&quot;</tspan>
+    <tspan x="18" dy="22">  side1=&quot;top&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.024&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VS&quot; label2=&quot;IN_POS&quot; port1=&quot;schematic_port_7&quot; port2=&quot;schematic_port_9&quot;</tspan>
+    <tspan x="18" dy="22">  side1=&quot;top&quot; side2=&quot;left&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.054&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">&lt;/SchematicBoxInnerLabelCollision&gt;</tspan>
     <tspan x="18" dy="22">&lt;/SchematicPlacementIssues&gt;</tspan>
 </text>
   </g>

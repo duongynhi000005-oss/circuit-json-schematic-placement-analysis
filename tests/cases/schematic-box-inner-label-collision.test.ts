@@ -48,13 +48,14 @@ test("generates an inner label collision issue for a chip", async () => {
   )
 
   expect(analysis.toString()).toContain(
-    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schHeight to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.2" suggestedSchHeight="2.311" />',
+    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schHeight to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="3" currentSchHeight="2" overlappingSides="top,bottom" minimumLabelGap="0.2" suggestedSchHeight="2.311">',
   )
 
   expect(
     createSchematicAnalysisFixtureSvg({
       circuitJson,
       analysis,
+      highlightIssues: ["SchematicBoxInnerLabelCollision"],
     }),
   ).toMatchSvgSnapshot(import.meta.path)
 })

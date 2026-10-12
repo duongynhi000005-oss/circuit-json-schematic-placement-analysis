@@ -33,6 +33,15 @@ test("reports near-touching staggered pin labels and suggests a padded size on t
         vertical ? ["top", "bottom"] : ["left", "right"],
       )
       expect(issue.minimumLabelGap).toBe(0.2)
+      expect(issue.labelPairs).toHaveLength(dimension === 1.2 ? 2 : 1)
+      const sourcePair = issue.labelPairs!.find(
+        (pair) => pair.firstLabel.text === "SOURCE",
+      )!
+      expect(sourcePair).toMatchObject({
+        firstLabel: { text: "SOURCE" },
+        secondLabel: { text: "DRAIN" },
+        kind: dimension === 1.2 ? "overlap" : "clearance",
+      })
       expect(
         vertical ? issue.suggestedSchHeight : issue.suggestedSchWidth,
       ).toBe(1.443)
@@ -53,17 +62,28 @@ test("reports near-touching staggered pin labels and suggests a padded size on t
       expect(resizedAnalysis.getIssues()).toHaveLength(0)
       expect(measureLabelBankGap(resized)).toBeGreaterThanOrEqual(0.2)
       if (dimension !== 1.3) continue
+      expect(sourcePair.measuredGap).toBeCloseTo(0.0575)
       expect(measureLabelBankGap(circuitJson)).toBeCloseTo(0.0575)
       for (const [stage, json, result] of [
         ["before", circuitJson, analysis],
         ["after", resized, resizedAnalysis],
       ] as const) {
-        expect(
-          createSchematicAnalysisFixtureSvg({
-            circuitJson: json,
-            analysis: result,
-          }),
-        ).toMatchSvgSnapshot(
+        const svg = createSchematicAnalysisFixtureSvg({
+          circuitJson: json,
+          analysis: result,
+          highlightIssues: ["SchematicBoxInnerLabelCollision"],
+        })
+        if (stage === "before") {
+          expect(
+            svg.match(/class="pin-label-collision-highlight"/g),
+          ).toHaveLength(2)
+          expect(svg).toContain('data-highlight-label="SOURCE"')
+          expect(svg).toContain('data-highlight-label="DRAIN"')
+          expect(svg).not.toContain('data-highlight-label="GATE"')
+        } else {
+          expect(svg).not.toContain('class="pin-label-collision-highlight"')
+        }
+        expect(svg).toMatchSvgSnapshot(
           import.meta.path,
           `${vertical ? "top-bottom" : "left-right"}-${stage}`,
         )

@@ -1,4 +1,4 @@
-<svg width="1200" height="2584" viewBox="0 0 1200 2584" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Actual RP2040 motor-controller reference crossing with analyzer evidence">
+<svg width="1200" height="2980" viewBox="0 0 1200 2980" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Actual RP2040 motor-controller reference crossing with analyzer evidence">
   <g transform="translate(0, 0) scale(1, 1) translate(0, 0)">
     <rect width="1200" height="82" fill="#f1f5f9"/>
     <text x="24" y="33" font-family="sans-serif" font-size="23" fill="#0f172a">Actual board: imrishabh18 / rp2040-motor-controller</text>
@@ -363,11 +363,29 @@
 <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
 <tspan x="18" dy="22">  schHeight to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
 <tspan x="18" dy="22">  componentName=&quot;DRIVER&quot; currentSchWidth=&quot;2.2&quot; currentSchHeight=&quot;3.8&quot;</tspan>
-<tspan x="18" dy="22">  overlappingSides=&quot;left,right,top,bottom&quot; minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;4.621&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  overlappingSides=&quot;left,right,top,bottom&quot; minimumLabelGap=&quot;0.2&quot; suggestedSchHeight=&quot;4.621&quot;&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;CP1&quot; label2=&quot;GND1&quot; port1=&quot;schematic_port_161&quot; port2=&quot;schematic_port_174&quot;</tspan>
+<tspan x="18" dy="22">  side1=&quot;left&quot; side2=&quot;bottom&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.19&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;CP2&quot; label2=&quot;GND1&quot; port1=&quot;schematic_port_162&quot; port2=&quot;schematic_port_174&quot;</tspan>
+<tspan x="18" dy="22">  side1=&quot;left&quot; side2=&quot;bottom&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.14&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VCP&quot; label2=&quot;GND1&quot; port1=&quot;schematic_port_163&quot; port2=&quot;schematic_port_174&quot;</tspan>
+<tspan x="18" dy="22">  side1=&quot;left&quot; side2=&quot;bottom&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.123&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VMA&quot; label2=&quot;AOUT1&quot; port1=&quot;schematic_port_164&quot;</tspan>
+<tspan x="18" dy="22">  port2=&quot;schematic_port_165&quot; side1=&quot;top&quot; side2=&quot;left&quot; kind=&quot;overlap&quot; measuredGap=&quot;0&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VMA&quot; label2=&quot;ISENA&quot; port1=&quot;schematic_port_164&quot;</tspan>
+<tspan x="18" dy="22">  port2=&quot;schematic_port_166&quot; side1=&quot;top&quot; side2=&quot;left&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.189&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;BVREF&quot; label2=&quot;DIR&quot; port1=&quot;schematic_port_173&quot;</tspan>
+<tspan x="18" dy="22">  port2=&quot;schematic_port_180&quot; side1=&quot;top&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.186&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;BVREF&quot; label2=&quot;STEP&quot; port1=&quot;schematic_port_173&quot;</tspan>
+<tspan x="18" dy="22">  port2=&quot;schematic_port_182&quot; side1=&quot;top&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.023&quot; /&gt;</tspan>
+<tspan x="18" dy="22">&lt;/SchematicBoxInnerLabelCollision&gt;</tspan>
 <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Inner labels overlap or are too close. Increase the</tspan>
 <tspan x="18" dy="22">  schWidth to leave at least 0.2 schematic units between labels on these sides.&quot;</tspan>
 <tspan x="18" dy="22">  componentName=&quot;Q_PD_ENABLE&quot; currentSchWidth=&quot;1.2&quot; currentSchHeight=&quot;0.8&quot;</tspan>
-<tspan x="18" dy="22">  overlappingSides=&quot;left,right&quot; minimumLabelGap=&quot;0.2&quot; suggestedSchWidth=&quot;1.24&quot; /&gt;</tspan>
+<tspan x="18" dy="22">  overlappingSides=&quot;left,right&quot; minimumLabelGap=&quot;0.2&quot; suggestedSchWidth=&quot;1.24&quot;&gt;</tspan>
+<tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;gate&quot; label2=&quot;source&quot; port1=&quot;schematic_port_220&quot;</tspan>
+<tspan x="18" dy="22">  port2=&quot;schematic_port_221&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.16&quot; /&gt;</tspan>
+<tspan x="18" dy="22">&lt;/SchematicBoxInnerLabelCollision&gt;</tspan>
 <tspan x="18" dy="22">&lt;/SchematicPlacementIssues&gt;</tspan>
 </text>
   </g>

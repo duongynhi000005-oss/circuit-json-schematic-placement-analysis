@@ -14,12 +14,15 @@ import type {
   SchematicBoxInnerLabelCollision,
   SchematicPlacementIssue,
   SchematicSide,
+  SchematicPinLabelBounds,
+  SchematicPinLabelCollisionPair,
 } from "../../types"
 import { addAttr } from "../../utils/format"
 import type { SolverContext } from "../SolverContext"
 
 interface CollisionSummary {
   overlappingSides: SchematicSide[]
+  labelPairs: SchematicPinLabelCollisionPair[]
 }
 
 export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
@@ -56,8 +59,8 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
     const schematicBox = this.placementById.get(schematicComponentId)
     if (!schematicBox) return
 
-    // Box labels use the renderer's default 0.15-unit sans-serif font.
-    // Glyph widths matter even when opposing banks are staggered by half a pin.
+    // Match the renderer's displayed text and font size. Glyph widths matter
+    // even when opposing banks are staggered by half a pin.
     const labelRects = getSchematicBoxLabelRects(
       schematicBox,
       ports,
@@ -74,6 +77,7 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
       schematicBox,
       overlappingSides: collisionSummary.overlappingSides,
       minimumLabelGap: MINIMUM_LABEL_BANK_GAP,
+      labelPairs: collisionSummary.labelPairs,
       suggestedSchWidth: expansion?.width,
       suggestedSchHeight: expansion?.height,
       message: this.getMessage(collisionSummary.overlappingSides, expansion),
@@ -90,7 +94,21 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
     addAttr(attrs, "minimumLabelGap", issue.minimumLabelGap)
     addAttr(attrs, "suggestedSchWidth", issue.suggestedSchWidth)
     addAttr(attrs, "suggestedSchHeight", issue.suggestedSchHeight)
-    return `<SchematicBoxInnerLabelCollision ${attrs.join(" ")} />`
+    const opening = `<SchematicBoxInnerLabelCollision ${attrs.join(" ")}`
+    if (!issue.labelPairs?.length) return `${opening} />`
+    const pairs = issue.labelPairs.map((pair) => {
+      const pairAttrs: string[] = []
+      addAttr(pairAttrs, "label1", pair.firstLabel.text)
+      addAttr(pairAttrs, "label2", pair.secondLabel.text)
+      addAttr(pairAttrs, "port1", pair.firstLabel.schematicPortId)
+      addAttr(pairAttrs, "port2", pair.secondLabel.schematicPortId)
+      addAttr(pairAttrs, "side1", pair.firstLabel.side)
+      addAttr(pairAttrs, "side2", pair.secondLabel.side)
+      addAttr(pairAttrs, "kind", pair.kind)
+      addAttr(pairAttrs, "measuredGap", pair.measuredGap)
+      return `  <PinLabelPair ${pairAttrs.join(" ")} />`
+    })
+    return `${opening}>\n${pairs.join("\n")}\n</SchematicBoxInnerLabelCollision>`
   }
 
   private getMessage(
@@ -150,6 +168,18 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
 
   private getCollisionSummary(rects: LabelRect[]): CollisionSummary {
     const overlappingSides = new Set<SchematicSide>()
+    const labelPairs: SchematicPinLabelCollisionPair[] = []
+    const label = (rect: LabelRect): SchematicPinLabelBounds => ({
+      schematicPortId: rect.schematicPortId,
+      text: rect.text,
+      side: rect.side,
+      bounds: {
+        left: rect.xMin,
+        right: rect.xMax,
+        bottom: rect.yMin,
+        top: rect.yMax,
+      },
+    })
 
     for (let i = 0; i < rects.length; i++) {
       for (let j = i + 1; j < rects.length; j++) {
@@ -161,11 +191,24 @@ export class SchematicBoxInnerLabelCollisionSolver extends BaseSolver {
 
         overlappingSides.add(a.side)
         overlappingSides.add(b.side)
+        labelPairs.push({
+          firstLabel: label(a),
+          secondLabel: label(b),
+          measuredGap: Math.max(
+            0,
+            a.xMin - b.xMax,
+            b.xMin - a.xMax,
+            a.yMin - b.yMax,
+            b.yMin - a.yMax,
+          ),
+          kind: schematicLabelRectsOverlap(a, b, 0) ? "overlap" : "clearance",
+        })
       }
     }
 
     return {
       overlappingSides: this.sortSides(Array.from(overlappingSides)),
+      labelPairs,
     }
   }
 

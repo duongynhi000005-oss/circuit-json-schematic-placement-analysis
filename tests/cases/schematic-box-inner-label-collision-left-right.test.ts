@@ -34,7 +34,7 @@ test("generates a left-right inner label collision issue", async () => {
     },
   ])
   expect(analysis.toString()).toContain(
-    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schWidth to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="1.25" currentSchHeight="4" overlappingSides="left,right" minimumLabelGap="0.2" suggestedSchWidth="1.489" />',
+    '<SchematicBoxInnerLabelCollision message="Inner labels overlap or are too close. Increase the schWidth to leave at least 0.2 schematic units between labels on these sides." componentName="U2" currentSchWidth="1.25" currentSchHeight="4" overlappingSides="left,right" minimumLabelGap="0.2" suggestedSchWidth="1.489">',
   )
   expect(collisionIssues[0]!.suggestedSchHeight).toBeUndefined()
   const resized = await createSchematicBoxInnerLabelCollisionCircuitJson({
@@ -51,6 +51,7 @@ test("generates a left-right inner label collision issue", async () => {
     createSchematicAnalysisFixtureSvg({
       circuitJson,
       analysis,
+      highlightIssues: ["SchematicBoxInnerLabelCollision"],
     }),
   ).toMatchSvgSnapshot(import.meta.path)
 })

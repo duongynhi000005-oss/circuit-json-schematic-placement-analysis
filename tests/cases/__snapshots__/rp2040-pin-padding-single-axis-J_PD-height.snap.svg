@@ -1,7 +1,7 @@
 <svg width="1200" height="2396" viewBox="0 0 1200 2396" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(0, 0) scale(1, 1) translate(0, 0)">
     <g transform="translate(0, 0)">
-    <svg xmlns="http://www.w3.org/2000/svg" class="tscircuit-schematic" width="1200" height="550" style="background-color: rgb(245, 241, 237)" data-real-to-screen-transform="matrix(71.9895287958,0,0,-71.9895287958,1263.0235602094,733.5732984293)" data-software-used-string="@tscircuit/core@0.0.1382"><style>
+    <svg xmlns="http://www.w3.org/2000/svg" class="tscircuit-schematic" width="1200" height="550" style="background-color: rgb(245, 241, 237)" data-real-to-screen-transform="matrix(71.9895287958,0,0,-71.9895287958,1263.0235602094,733.5732984293)" data-software-used-string="@tscircuit/core@0.0.2132"><style>
               .boundary { fill: rgb(245, 241, 237); }
               .schematic-boundary { fill: none; stroke: #fff; }
               .component { fill: none; stroke: rgb(132, 0, 0); }
@@ -35,7 +35,7 @@
   </g>
   <g transform="translate(0, 872) scale(1, 1) translate(0, 0)">
     <g transform="translate(0, 0)">
-    <svg xmlns="http://www.w3.org/2000/svg" class="tscircuit-schematic" width="1200" height="550" style="background-color: rgb(245, 241, 237)" data-real-to-screen-transform="matrix(119.6953210011,0,0,-119.6953210011,1702.39390642,1037.4591947769)" data-software-used-string="@tscircuit/core@0.0.1382"><style>
+    <svg xmlns="http://www.w3.org/2000/svg" class="tscircuit-schematic" width="1200" height="550" style="background-color: rgb(245, 241, 237)" data-real-to-screen-transform="matrix(119.6953210011,0,0,-119.6953210011,1702.39390642,1037.4591947769)" data-software-used-string="@tscircuit/core@0.0.2132"><style>
               .boundary { fill: rgb(245, 241, 237); }
               .schematic-boundary { fill: none; stroke: #fff; }
               .component { fill: none; stroke: rgb(132, 0, 0); }
@@ -69,7 +69,7 @@
   </g>
   <g transform="translate(0, 1744) scale(1, 1) translate(0, 0)">
     <g transform="translate(0, 0)">
-    <svg xmlns="http://www.w3.org/2000/svg" class="tscircuit-schematic" width="1200" height="550" style="background-color: rgb(245, 241, 237)" data-real-to-screen-transform="matrix(119.6953210011,0,0,-119.6953210011,1702.39390642,1037.4591947769)" data-software-used-string="@tscircuit/core@0.0.1382"><style>
+    <svg xmlns="http://www.w3.org/2000/svg" class="tscircuit-schematic" width="1200" height="550" style="background-color: rgb(245, 241, 237)" data-real-to-screen-transform="matrix(119.6953210011,0,0,-119.6953210011,1702.39390642,1037.4591947769)" data-software-used-string="@tscircuit/core@0.0.2132"><style>
               .boundary { fill: rgb(245, 241, 237); }
               .schematic-boundary { fill: none; stroke: #fff; }
               .component { fill: none; stroke: rgb(132, 0, 0); }
