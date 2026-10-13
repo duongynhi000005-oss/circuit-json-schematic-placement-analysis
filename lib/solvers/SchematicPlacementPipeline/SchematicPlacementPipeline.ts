@@ -1,4 +1,6 @@
 import { SeriesRcFilterPlacementSolver } from "../SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
+import { ChipPinCrystalPlacementSolver } from "../ChipPinCrystalPlacementSolver/ChipPinCrystalPlacementSolver"
+import { SchematicBoxInnerLabelBoundsSolver } from "../SchematicBoxInnerLabelBoundsSolver/SchematicBoxInnerLabelBoundsSolver"
 import { TransistorRailOrientationSolver } from "../TransistorRailOrientationSolver/TransistorRailOrientationSolver"
 import { ChipSupplyInductorPlacementSolver } from "../ChipSupplyInductorPlacementSolver/ChipSupplyInductorPlacementSolver"
 import { SharedNodeDiodePlacementSolver } from "../SharedNodeDiodePlacementSolver/SharedNodeDiodePlacementSolver"
@@ -65,6 +67,7 @@ const solversByIssueType = {
   ResistorSeparatedFromChipPin: [ChipPinResistorPlacementSolver],
   InductorSeparatedFromChipPin: [ChipSupplyInductorPlacementSolver],
   CapacitorSeparatedFromChipPins: [ChipPinPairCapacitorPlacementSolver],
+  CrystalSeparatedFromChipPins: [ChipPinCrystalPlacementSolver],
   SharedNodeDiodesInline: [SharedNodeDiodePlacementSolver],
   DiodeCapacitorJunctionTooSpreadOut: [DiodeCapacitorStagePlacementSolver],
   PiFilterComponentsNotGrouped: [PiFilterPlacementSolver],
@@ -81,6 +84,7 @@ const solversByIssueType = {
   PinHeaderSchematicBoxTooWide: [SchematicBoxTooWideSolver],
   GenericSchematicBoxTooWide: [SchematicBoxTooWideSolver],
   SchematicBoxInnerLabelCollision: [SchematicBoxInnerLabelCollisionSolver],
+  SchematicBoxInnerLabelOutOfBounds: [SchematicBoxInnerLabelBoundsSolver],
   SchematicPinPaddingToEdgeTooLarge: [SchematicPinPaddingToEdgeSolver],
   DiodeResistorNotAligned: [DiodeResistorAlignmentSolver],
   SeriesRcFilterComponentsNotGrouped: [SeriesRcFilterPlacementSolver],
@@ -189,6 +193,13 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
     definePipelineStep(
       "SchematicPinPaddingToEdgeSolver",
       SchematicPinPaddingToEdgeSolver,
+      (p: SchematicPlacementPipeline): [SolverParams] => [
+        { ctx: p.ctx, issues: p.issues },
+      ],
+    ),
+    definePipelineStep(
+      "SchematicBoxInnerLabelBoundsSolver",
+      SchematicBoxInnerLabelBoundsSolver,
       (p: SchematicPlacementPipeline): [SolverParams] => [
         { ctx: p.ctx, issues: p.issues },
       ],
@@ -378,6 +389,13 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
     definePipelineStep(
       "ChipPinPairCapacitorPlacementSolver",
       ChipPinPairCapacitorPlacementSolver,
+      (p: SchematicPlacementPipeline): [SolverParams] => [
+        { ctx: p.ctx, issues: p.issues },
+      ],
+    ),
+    definePipelineStep(
+      "ChipPinCrystalPlacementSolver",
+      ChipPinCrystalPlacementSolver,
       (p: SchematicPlacementPipeline): [SolverParams] => [
         { ctx: p.ctx, issues: p.issues },
       ],
