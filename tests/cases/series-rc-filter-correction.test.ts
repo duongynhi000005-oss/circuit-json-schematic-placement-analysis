@@ -36,15 +36,10 @@ test("moving only the two DAC filter capacitors clears the findings and preserve
   }
   const analysis = analyzeSchematicPlacement(after)
   expect(analysis.getIssueCounts().SeriesRcFilterComponentsNotGrouped).toBe(0)
-  // The renderer also shortens an unrelated DVDD route when it recomputes the sheet.
   expect(analysis.getIssues()).toEqual(
     analyzeSchematicPlacement(before)
       .getIssues()
-      .filter(
-        (i) =>
-          i.lineItemType !== "SeriesRcFilterComponentsNotGrouped" &&
-          i.lineItemType !== "RailPathTooSpreadOut",
-      ),
+      .filter((i) => i.lineItemType !== "SeriesRcFilterComponentsNotGrouped"),
   )
   expect(
     createSchematicAnalysisFixtureSvg({

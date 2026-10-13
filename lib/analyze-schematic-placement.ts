@@ -1,4 +1,5 @@
 import { SeriesRcFilterPlacementSolver } from "./solvers/SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
+import { ParallelResistorPlacementSolver } from "./solvers/ParallelResistorPlacementSolver/ParallelResistorPlacementSolver"
 import { ChipPinCrystalPlacementSolver } from "./solvers/ChipPinCrystalPlacementSolver/ChipPinCrystalPlacementSolver"
 import { SchematicBoxInnerLabelBoundsSolver } from "./solvers/SchematicBoxInnerLabelBoundsSolver/SchematicBoxInnerLabelBoundsSolver"
 import { TransistorRailOrientationSolver } from "./solvers/TransistorRailOrientationSolver/TransistorRailOrientationSolver"
@@ -105,6 +106,7 @@ export class SchematicPlacementAnalysis {
       SchematicPinPaddingToEdgeTooLarge: 0,
       DiodeResistorNotAligned: 0,
       SeriesRcFilterComponentsNotGrouped: 0,
+      ParallelResistorsDrawnInline: 0,
       ParallelRcNotAligned: 0,
       ParallelDiodeResistorNotAligned: 0,
       ComponentPinsWouldAlignWithVerticalShift: 0,
@@ -202,6 +204,8 @@ export class SchematicPlacementAnalysis {
         return SchematicPinPaddingToEdgeSolver.issueToString(issue)
       case "SeriesRcFilterComponentsNotGrouped":
         return SeriesRcFilterPlacementSolver.issueToString(issue)
+      case "ParallelResistorsDrawnInline":
+        return ParallelResistorPlacementSolver.issueToString(issue)
       case "ParallelRcNotAligned":
         return ParallelRcPlacementSolver.issueToString(issue)
       case "ParallelDiodeResistorNotAligned":

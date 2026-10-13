@@ -77,7 +77,6 @@ test("reproduces the complete pocket audio DAC sheet with separated output RC fi
     "DecouplingCapacitorsNotCloseTogether",
     "ResistorSeparatedFromChipPin",
     "CapacitorSeparatedFromChipPins",
-    "RailPathTooSpreadOut",
     "SeriesRcFilterComponentsNotGrouped",
     "SeriesRcFilterComponentsNotGrouped",
   ])

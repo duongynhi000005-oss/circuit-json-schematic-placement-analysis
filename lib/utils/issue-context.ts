@@ -182,6 +182,10 @@ export const getRelevantPlacementsForIssues = ({
           addComponentName(getComponentNameFromPin(pin), issue.schematicSheetId)
         }
         break
+      case "ParallelResistorsDrawnInline":
+        addPlacement(issue.firstResistorSchematicBox)
+        addPlacement(issue.secondResistorSchematicBox)
+        break
       case "SeriesRcFilterComponentsNotGrouped":
       case "ParallelRcNotAligned":
         addPlacement(issue.resistorSchematicBox)
