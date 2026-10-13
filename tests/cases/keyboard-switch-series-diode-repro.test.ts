@@ -55,6 +55,7 @@ test("reproduces the complete key-pcb sheet with separated switch series diodes"
     ...Array(2).fill("SchematicBoxInnerLabelCollision"),
     ...Array(9).fill("TwoPinComponentShouldBeVertical"),
     "NetLabelCollision",
+    ...Array(3).fill("DecouplingCapacitorsNotCloseTogether"),
     "ResistorSeparatedFromChipPin",
     "RailPathTooSpreadOut",
   ])
