@@ -1,4 +1,4 @@
-<svg width="2400" height="4408" viewBox="0 0 2400 4408" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
+<svg width="2400" height="3792" viewBox="0 0 2400 3792" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
   <g transform="translate(0, 0)">
     <style>
               .boundary { fill: rgb(245, 241, 237); }
@@ -100,70 +100,54 @@
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_CC2&quot; positionAnchor=&quot;center&quot; schX=&quot;-40&quot; schY=&quot;-7&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_IN&quot; positionAnchor=&quot;center&quot; schX=&quot;-30&quot; schY=&quot;-5&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_OUT&quot; positionAnchor=&quot;center&quot; schX=&quot;-22&quot; schY=&quot;-5&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;U2&quot; positionAnchor=&quot;center&quot; schX=&quot;-26&quot; schY=&quot;0&quot;</tspan>
+    <tspan x="18" dy="22">  width=&quot;1.2&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;U3&quot; positionAnchor=&quot;center&quot; schX=&quot;-60&quot; schY=&quot;0&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;2.2&quot; height=&quot;2.2&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_VPCC_H&quot; positionAnchor=&quot;center&quot; schX=&quot;-64&quot; schY=&quot;3&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_VPCC_L&quot; positionAnchor=&quot;center&quot; schX=&quot;-64&quot; schY=&quot;6&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_VSYS&quot; positionAnchor=&quot;center&quot; schX=&quot;-54&quot; schY=&quot;-6&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_PROG1&quot; positionAnchor=&quot;center&quot; schX=&quot;-60&quot; schY=&quot;-6&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_PROG3&quot; positionAnchor=&quot;center&quot; schX=&quot;-60&quot; schY=&quot;-9&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_THERM&quot; positionAnchor=&quot;center&quot; schX=&quot;-60&quot; schY=&quot;-12&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_BVIN&quot; positionAnchor=&quot;center&quot; schX=&quot;-50&quot; schY=&quot;-6&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_BVOUT&quot; positionAnchor=&quot;center&quot; schX=&quot;-42&quot; schY=&quot;-6&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_BVOUT2&quot; positionAnchor=&quot;center&quot; schX=&quot;-39&quot; schY=&quot;-9&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_FBH&quot; positionAnchor=&quot;center&quot; schX=&quot;-42&quot; schY=&quot;4&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_FBL&quot; positionAnchor=&quot;center&quot; schX=&quot;-42.85&quot; schY=&quot;-4&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_BULK&quot; positionAnchor=&quot;center&quot; schX=&quot;10&quot; schY=&quot;-6&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_DEC&quot; positionAnchor=&quot;center&quot; schX=&quot;13&quot; schY=&quot;-6&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;LED4&quot; positionAnchor=&quot;center&quot; schX=&quot;45&quot; schY=&quot;7&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;1.13&quot; height=&quot;0.65&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED1&quot; positionAnchor=&quot;center&quot; schX=&quot;27&quot; schY=&quot;7&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED2&quot; positionAnchor=&quot;center&quot; schX=&quot;34&quot; schY=&quot;7&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED3&quot; positionAnchor=&quot;center&quot; schX=&quot;41&quot; schY=&quot;7&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED4&quot; positionAnchor=&quot;center&quot; schX=&quot;48&quot; schY=&quot;7&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED5&quot; positionAnchor=&quot;center&quot; schX=&quot;27&quot; schY=&quot;-2&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED6&quot; positionAnchor=&quot;center&quot; schX=&quot;34&quot; schY=&quot;-2&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED7&quot; positionAnchor=&quot;center&quot; schX=&quot;41&quot; schY=&quot;-2&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED8&quot; positionAnchor=&quot;center&quot; schX=&quot;48&quot; schY=&quot;-2&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED9&quot; positionAnchor=&quot;center&quot; schX=&quot;27&quot; schY=&quot;-11&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED10&quot; positionAnchor=&quot;center&quot; schX=&quot;34&quot; schY=&quot;-11&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED11&quot; positionAnchor=&quot;center&quot; schX=&quot;41&quot; schY=&quot;-11&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LED12&quot; positionAnchor=&quot;center&quot; schX=&quot;48&quot; schY=&quot;-11&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;R_LED&quot; positionAnchor=&quot;center&quot; schX=&quot;43.4&quot; schY=&quot;7&quot;</tspan>
     <tspan x="18" dy="22">  width=&quot;0.6&quot; height=&quot;0.65&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;SchematicBoxPlacement componentName=&quot;C_LS&quot; positionAnchor=&quot;center&quot; schX=&quot;30&quot; schY=&quot;4&quot;</tspan>
-    <tspan x="18" dy="22">  width=&quot;0.9&quot; height=&quot;0.6&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;/SchematicBoxPositions&gt;</tspan>
     <tspan x="18" dy="22">&lt;SchematicPlacementIssues&gt;</tspan>
+    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels SHELL2 (left) and VBUS2 (right) are too close.</tspan>
+    <tspan x="18" dy="22">  Labels SHELL2 (left) and VBUS1 (right) are too close. Labels SHELL4 (left) and VBUS2 (right)</tspan>
+    <tspan x="18" dy="22">  are too close. Labels SHELL4 (left) and VBUS1 (right) are too close. Labels SHELL3 (left) and</tspan>
+    <tspan x="18" dy="22">  VBUS2 (right) are too close. Increase the schWidth to leave at least 0.1 schematic units</tspan>
+    <tspan x="18" dy="22">  between these labels.&quot; componentName=&quot;USBC&quot; currentSchWidth=&quot;1.3&quot; currentSchHeight=&quot;1.8&quot;</tspan>
+    <tspan x="18" dy="22">  overlappingSides=&quot;left,right&quot; minimumLabelGap=&quot;0.1&quot; suggestedSchWidth=&quot;1.373&quot;&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;SHELL2&quot; label2=&quot;VBUS2&quot; port1=&quot;schematic_port_0&quot;</tspan>
+    <tspan x="18" dy="22">  port2=&quot;schematic_port_14&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.05&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;SHELL2&quot; label2=&quot;VBUS1&quot; port1=&quot;schematic_port_0&quot;</tspan>
+    <tspan x="18" dy="22">  port2=&quot;schematic_port_15&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.027&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;SHELL4&quot; label2=&quot;VBUS2&quot; port1=&quot;schematic_port_1&quot;</tspan>
+    <tspan x="18" dy="22">  port2=&quot;schematic_port_14&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.027&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;SHELL4&quot; label2=&quot;VBUS1&quot; port1=&quot;schematic_port_1&quot;</tspan>
+    <tspan x="18" dy="22">  port2=&quot;schematic_port_15&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.05&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;SHELL3&quot; label2=&quot;VBUS2&quot; port1=&quot;schematic_port_2&quot;</tspan>
+    <tspan x="18" dy="22">  port2=&quot;schematic_port_14&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.05&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">&lt;/SchematicBoxInnerLabelCollision&gt;</tspan>
+    <tspan x="18" dy="22">&lt;SchematicBoxInnerLabelCollision message=&quot;Labels VOUT1 (left) and VOUT2 (right) are too close.</tspan>
+    <tspan x="18" dy="22">  Increase the schWidth to leave at least 0.1 schematic units between these labels.&quot;</tspan>
+    <tspan x="18" dy="22">  componentName=&quot;U2&quot; currentSchWidth=&quot;1.2&quot; currentSchHeight=&quot;0.6&quot; overlappingSides=&quot;left,right&quot;</tspan>
+    <tspan x="18" dy="22">  minimumLabelGap=&quot;0.1&quot; suggestedSchWidth=&quot;1.272&quot;&gt;</tspan>
+    <tspan x="18" dy="22">  &lt;PinLabelPair label1=&quot;VOUT1&quot; label2=&quot;VOUT2&quot; port1=&quot;schematic_port_27&quot;</tspan>
+    <tspan x="18" dy="22">  port2=&quot;schematic_port_29&quot; side1=&quot;left&quot; side2=&quot;right&quot; kind=&quot;clearance&quot; measuredGap=&quot;0.05&quot; /&gt;</tspan>
+    <tspan x="18" dy="22">&lt;/SchematicBoxInnerLabelCollision&gt;</tspan>
     <tspan x="18" dy="22">&lt;TwoPinComponentShouldBeVertical componentName=&quot;R_CC1&quot; railPin=&quot;pin2&quot; railType=&quot;ground&quot;</tspan>
     <tspan x="18" dy="22">  deltaSchRotation=&quot;-90&quot; suggestedRailFacingDirection=&quot;down&quot; message=&quot;rotate R_CC1 by -90° so</tspan>
     <tspan x="18" dy="22">  its ground-connected pin faces down and the component is vertical&quot; /&gt;</tspan>
@@ -198,18 +182,6 @@
     <tspan x="18" dy="22">    &lt;Move componentName=&quot;LED4&quot; newSchX=&quot;45.21&quot; newSchY=&quot;7&quot; /&gt;</tspan>
     <tspan x="18" dy="22">  &lt;/SuggestedFix&gt;</tspan>
     <tspan x="18" dy="22">&lt;/ComponentNetLabelCollision&gt;</tspan>
-    <tspan x="18" dy="22">&lt;DecouplingCapacitorsNotCloseTogether rail=&quot;VBUS&quot; ground=&quot;GND&quot; capacitorNames=&quot;C_IN, C_BVOUT,</tspan>
-    <tspan x="18" dy="22">  C_BVOUT2, C_LED1, C_LED2, C_LED3, C_LED4, C_LED5, C_LED6, C_LED7, C_LED8, C_LED9, C_LED10,</tspan>
-    <tspan x="18" dy="22">  C_LED11, C_LED12, C_LS&quot; maxBodyGap=&quot;56.151&quot; maxRecommendedBodyGap=&quot;1&quot; message=&quot;Group the</tspan>
-    <tspan x="18" dy="22">  decoupling capacitors between VBUS and GND closer together in this schematic block. Preserve</tspan>
-    <tspan x="18" dy="22">  their net connections.&quot; /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;DecouplingCapacitorsNotCloseTogether rail=&quot;V3_3&quot; ground=&quot;GND&quot; capacitorNames=&quot;C_OUT, C_BULK,</tspan>
-    <tspan x="18" dy="22">  C_DEC&quot; maxBodyGap=&quot;31.103&quot; maxRecommendedBodyGap=&quot;1&quot; message=&quot;Group the decoupling capacitors</tspan>
-    <tspan x="18" dy="22">  between V3_3 and GND closer together in this schematic block. Preserve their net connections.&quot;</tspan>
-    <tspan x="18" dy="22">  /&gt;</tspan>
-    <tspan x="18" dy="22">&lt;DecouplingCapacitorsNotCloseTogether rail=&quot;VSYS&quot; ground=&quot;GND&quot; capacitorNames=&quot;C_VSYS, C_BVIN&quot;</tspan>
-    <tspan x="18" dy="22">  maxBodyGap=&quot;3.1&quot; maxRecommendedBodyGap=&quot;1&quot; message=&quot;Group the decoupling capacitors between</tspan>
-    <tspan x="18" dy="22">  VSYS and GND closer together in this schematic block. Preserve their net connections.&quot; /&gt;</tspan>
     <tspan x="18" dy="22">&lt;ResistorSeparatedFromChipPin hostComponentName=&quot;USBC&quot; resistorName=&quot;R_CC1&quot; pinDistance=&quot;5.612&quot;</tspan>
     <tspan x="18" dy="22">  maxRecommendedPinDistance=&quot;4&quot; message=&quot;Place R_CC1 beside its connected pin on the left side</tspan>
     <tspan x="18" dy="22">  of USBC so the resistor-to-ground branch can be read together. Preserve pin connections, leave</tspan>

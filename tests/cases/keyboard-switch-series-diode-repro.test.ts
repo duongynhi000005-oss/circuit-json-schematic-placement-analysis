@@ -52,9 +52,9 @@ test("reproduces the complete key-pcb sheet with separated switch series diodes"
   expectReproNets(circuitJson, branches)
   const analysis = analyzeSchematicPlacement(circuitJson)
   expect(analysis.getIssues().map((i) => i.lineItemType)).toEqual([
+    ...Array(2).fill("SchematicBoxInnerLabelCollision"),
     ...Array(9).fill("TwoPinComponentShouldBeVertical"),
     "NetLabelCollision",
-    ...Array(3).fill("DecouplingCapacitorsNotCloseTogether"),
     "ResistorSeparatedFromChipPin",
     "RailPathTooSpreadOut",
   ])
