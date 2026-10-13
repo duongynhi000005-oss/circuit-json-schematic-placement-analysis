@@ -1,3 +1,4 @@
+import { SwitchMatrixDiodePlacementSolver } from "../SwitchMatrixDiodePlacementSolver/SwitchMatrixDiodePlacementSolver"
 import { SeriesRcFilterPlacementSolver } from "../SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
 import { ParallelResistorPlacementSolver } from "../ParallelResistorPlacementSolver/ParallelResistorPlacementSolver"
 import { ChipPinCrystalPlacementSolver } from "../ChipPinCrystalPlacementSolver/ChipPinCrystalPlacementSolver"
@@ -62,6 +63,8 @@ type SolverParams = {
 
 // Include prerequisites used when deduplicating findings in getOutput().
 const solversByIssueType = {
+  SwitchMatrixDiodeSeparatedFromSwitch: [SwitchMatrixDiodePlacementSolver],
+  SwitchMatrixBranchesTooSpreadOut: [SwitchMatrixDiodePlacementSolver],
   TransistorHasIncorrectRailOrientation: [TransistorRailOrientationSolver],
   SeriesLedChainNotOrdered: [SeriesLedChainPlacementSolver],
   RailPathTooSpreadOut: [RailPathVisibilitySolver],
@@ -129,6 +132,13 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
   readonly issues: SchematicPlacementIssue[] = []
 
   pipelineDef: PipelineStep<any>[] = [
+    definePipelineStep(
+      "SwitchMatrixDiodePlacementSolver",
+      SwitchMatrixDiodePlacementSolver,
+      (p: SchematicPlacementPipeline): [SolverParams] => [
+        { ctx: p.ctx, issues: p.issues },
+      ],
+    ),
     definePipelineStep(
       "ParallelResistorPlacementSolver",
       ParallelResistorPlacementSolver,

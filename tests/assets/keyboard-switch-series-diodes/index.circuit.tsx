@@ -146,7 +146,13 @@ const OFFLINE_PARTS_ENGINE: PartsEngine = {
   fetchPartCircuitJson: () => undefined,
 }
 
-export default () => (
+export default ({
+  correctedLayout = false,
+  compactMatrix = correctedLayout,
+}: {
+  correctedLayout?: boolean
+  compactMatrix?: boolean
+} = {}) => (
   <board
     width="94mm"
     height="94mm"
@@ -182,6 +188,7 @@ export default () => (
         shipped a fab export with no USB at all. ═══ */}
     <TYPE_C_31_M_12
       name="USBC"
+      schWidth={correctedLayout ? 1.4 : undefined}
       schSectionName="USB"
       layer="bottom"
       schX={-42.62}
@@ -194,24 +201,26 @@ export default () => (
         under the connector, ~3.5mm from the CC pads at (±1.25, 40.87) */}
     <resistor
       name="R_CC1"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="5.1k"
       footprint="0402"
       layer="bottom"
       schSectionName="USB"
-      schX={-39.15}
-      schY={-4}
+      schX={correctedLayout ? -45 : -39.15}
+      schY={correctedLayout ? -2.2 : -4}
       pcbX={-4}
       pcbY={39.3}
       supplierPartNumbers={{ jlcpcb: ["C25905"] }}
     />
     <resistor
       name="R_CC2"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="5.1k"
       footprint="0402"
       layer="bottom"
       schSectionName="USB"
       schX={-40}
-      schY={-7}
+      schY={correctedLayout ? -2.2 : -7}
       pcbX={4.2}
       pcbY={39.3}
       supplierPartNumbers={{ jlcpcb: ["C25905"] }}
@@ -239,6 +248,7 @@ export default () => (
         pin1 GND, pin2 VOUT, pin3 VIN, tab = VOUT. ═══ */}
     <chip
       name="U2"
+      schWidth={correctedLayout ? 1.3 : undefined}
       schSectionName="Power"
       manufacturerPartNumber="AP2114H-3.3TRG1"
       supplierPartNumbers={{ jlcpcb: ["C150716"] }}
@@ -268,8 +278,8 @@ export default () => (
       footprint="0805"
       layer="bottom"
       schSectionName="Power"
-      schX={-30}
-      schY={-5}
+      schX={correctedLayout ? -64.4 : -30}
+      schY={correctedLayout ? -13 : -5}
       pcbX={-9}
       pcbY={27.9}
       supplierPartNumbers={{ jlcpcb: ["C15850"] }}
@@ -281,8 +291,8 @@ export default () => (
       footprint="0805"
       layer="bottom"
       schSectionName="Power"
-      schX={-22}
-      schY={-5}
+      schX={correctedLayout ? 8.6 : -22}
+      schY={correctedLayout ? -6 : -5}
       pcbX={-5.5}
       pcbY={33}
       supplierPartNumbers={{ jlcpcb: ["C15850"] }}
@@ -351,24 +361,26 @@ export default () => (
     />
     <resistor
       name="R_VPCC_H"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="330k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
       schX={-64}
-      schY={3}
+      schY={correctedLayout ? 2.3 : 3}
       pcbX={-0.6}
       pcbY={28.6}
       supplierPartNumbers={{ jlcpcb: ["C25778"] }}
     />
     <resistor
       name="R_VPCC_L"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="110k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
       schX={-64}
-      schY={6}
+      schY={correctedLayout ? -0.7 : 6}
       pcbX={-3}
       pcbY={28.6}
       supplierPartNumbers={{ jlcpcb: ["C2909311"] }}
@@ -417,36 +429,39 @@ export default () => (
     />
     <resistor
       name="R_PROG1"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="2k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
-      schX={-60}
-      schY={-6}
+      schX={correctedLayout ? -54 : -60}
+      schY={correctedLayout ? -2.2 : -6}
       pcbX={4.6}
       pcbY={36.2}
       supplierPartNumbers={{ jlcpcb: ["C4109"] }}
     />
     <resistor
       name="R_PROG3"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="33k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
-      schX={-60}
-      schY={-9}
+      schX={correctedLayout ? -57 : -60}
+      schY={correctedLayout ? -2.2 : -9}
       pcbX={-6.3}
       pcbY={35.2}
       supplierPartNumbers={{ jlcpcb: ["C25779"] }}
     />
     <resistor
       name="R_THERM"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="10k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
-      schX={-60}
-      schY={-12}
+      schX={correctedLayout ? -66.5 : -60}
+      schY={correctedLayout ? -2.2 : -12}
       pcbX={-4.4}
       pcbY={30.1}
       supplierPartNumbers={{ jlcpcb: ["C191123"] }}
@@ -486,7 +501,7 @@ export default () => (
       footprint="0805"
       layer="bottom"
       schSectionName="Battery"
-      schX={-50}
+      schX={correctedLayout ? -52.6 : -50}
       schY={-6}
       pcbX={-4.6}
       pcbY={25.2}
@@ -501,8 +516,8 @@ export default () => (
       footprint="0805"
       layer="bottom"
       schSectionName="Battery"
-      schX={-42}
-      schY={-6}
+      schX={correctedLayout ? -68 : -42}
+      schY={correctedLayout ? -13 : -6}
       pcbX={-2.6}
       pcbY={21.5}
       supplierPartNumbers={{ jlcpcb: ["C45783"] }}
@@ -514,8 +529,8 @@ export default () => (
       footprint="0805"
       layer="bottom"
       schSectionName="Battery"
-      schX={-39}
-      schY={-9}
+      schX={correctedLayout ? -66.2 : -39}
+      schY={correctedLayout ? -13 : -9}
       pcbX={1.6}
       pcbY={20.2}
       supplierPartNumbers={{ jlcpcb: ["C45783"] }}
@@ -524,24 +539,26 @@ export default () => (
         node — keep its loop tiny) */}
     <resistor
       name="R_FBH"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="732k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
-      schX={-42}
-      schY={4}
+      schX={correctedLayout ? -51 : -42}
+      schY={correctedLayout ? 1.7 : 4}
       pcbX={-7}
       pcbY={23.2}
       supplierPartNumbers={{ jlcpcb: ["C5159692"] }}
     />
     <resistor
       name="R_FBL"
+      schRotation={correctedLayout ? -90 : 0}
       resistance="100k"
       footprint="0402"
       layer="bottom"
       schSectionName="Battery"
-      schX={-42.85}
-      schY={-4}
+      schX={correctedLayout ? -51 : -42.85}
+      schY={correctedLayout ? -1.3 : -4}
       pcbX={-5.6}
       pcbY={21.2}
       supplierPartNumbers={{ jlcpcb: ["C25741"] }}
@@ -591,7 +608,7 @@ export default () => (
       footprint="0402"
       layer="bottom"
       schSectionName="MCU"
-      schX={13}
+      schX={correctedLayout ? 11.4 : 13}
       schY={-6}
       pcbX={12.8}
       pcbY={21.5}
@@ -772,7 +789,8 @@ export default () => (
         pcbX={k.x}
         pcbY={k.y}
         schX={24 + k.c * 7}
-        schY={14 - k.r * 9}
+        schY={14 - k.r * (compactMatrix ? 4 : 9)}
+        ledSchY={compactMatrix ? 3 - k.r * 3 : undefined}
       />
     ))}
 
@@ -1106,8 +1124,9 @@ export default () => (
           name={k.d}
           layer="bottom"
           schSectionName="Keys"
-          schX={24 + k.c * 7 + 3}
-          schY={14 - k.r * 9 - 3}
+          schX={24 + k.c * 7 + (correctedLayout ? -3 : 3)}
+          schY={14 - k.r * (compactMatrix ? 4 : 9) - (correctedLayout ? 0 : 3)}
+          schRotation={correctedLayout ? 180 : 0}
           pcbX={k.x - 7.2}
           pcbY={k.y - 1.4}
           pcbRotation="270deg"
@@ -1183,8 +1202,10 @@ export default () => (
           schOrientation="vertical"
           supplierPartNumbers={{ jlcpcb: ["C1525"] }}
           schSectionName="LEDs"
-          schX={24 + k.c * 7 + 3}
-          schY={14 - k.r * 9 - 7}
+          schX={
+            correctedLayout ? -60.8 + (k.r * 4 + k.c) * 1.8 : 24 + k.c * 7 + 3
+          }
+          schY={correctedLayout ? -13 : 14 - k.r * 9 - 7}
           pcbX={k.x}
           pcbY={k.y - 8.2}
         />
@@ -1220,11 +1241,12 @@ export default () => (
     <resistor
       name="R_LED"
       resistance="470"
+      schRotation={correctedLayout ? 180 : 0}
       footprint="0402"
       layer="bottom"
       schSectionName="LEDs"
-      schX={43.4}
-      schY={7}
+      schX={correctedLayout ? 50 : 43.4}
+      schY={correctedLayout ? 10 : 7}
       pcbX={16.2}
       pcbY={22}
       pcbRotation="90deg"
@@ -1237,8 +1259,8 @@ export default () => (
       layer="bottom"
       schOrientation="vertical"
       schSectionName="LEDs"
-      schX={30}
-      schY={4}
+      schX={correctedLayout ? -62.6 : 30}
+      schY={correctedLayout ? -13 : 4}
       pcbX={14}
       pcbY={26.5}
       pcbRotation="90deg"
@@ -1249,8 +1271,9 @@ export default () => (
       schSectionName="LEDs"
       layer="bottom"
       schHeight={0.6}
-      schX={30}
-      schY={8}
+      schX={correctedLayout ? 54.5 : 30}
+      schY={correctedLayout ? 10 : 8}
+      schRotation={correctedLayout ? 180 : 0}
       pcbX={10.5}
       pcbY={26.5}
     />

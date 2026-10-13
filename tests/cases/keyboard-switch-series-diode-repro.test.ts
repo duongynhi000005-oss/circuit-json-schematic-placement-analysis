@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 import { analyzeSchematicPlacement } from "lib/index"
 import { createKeyboardSwitchDiodeRepro } from "../assets/keyboard-switch-series-diodes"
-import { createSchematicAnalysisFixtureSvg } from "../fixtures/create-schematic-analysis-fixture-svg"
+import { createIssueReproSnapshot } from "../fixtures/create-issue-repro-snapshot"
 import {
   expectReproNets,
   expectReproRendered,
@@ -52,6 +52,7 @@ test("reproduces the complete key-pcb sheet with separated switch series diodes"
   expectReproNets(circuitJson, branches)
   const analysis = analyzeSchematicPlacement(circuitJson)
   expect(analysis.getIssues().map((i) => i.lineItemType)).toEqual([
+    ...Array(12).fill("SwitchMatrixDiodeSeparatedFromSwitch"),
     ...Array(2).fill("SchematicBoxInnerLabelCollision"),
     ...Array(9).fill("TwoPinComponentShouldBeVertical"),
     "NetLabelCollision",
@@ -60,11 +61,15 @@ test("reproduces the complete key-pcb sheet with separated switch series diodes"
     "RailPathTooSpreadOut",
   ])
   expect(
-    createSchematicAnalysisFixtureSvg({
+    createIssueReproSnapshot({
       circuitJson,
       analysis,
       width: 2400,
-      height: 1600,
+      height: 800,
+      issueTypes: ["SwitchMatrixDiodeSeparatedFromSwitch"],
+      showFullSchematic: true,
+      showIssueGeometry: false,
+      showListingIssueMarkers: true,
     }),
   ).toMatchSvgSnapshot(import.meta.path, "full-sheet")
 })

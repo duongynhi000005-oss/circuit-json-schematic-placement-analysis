@@ -658,7 +658,31 @@ export interface TransistorHasIncorrectRailOrientation {
   message: string
 }
 
+/** A discrete diode is separated from its switch in a repeated matrix branch. */
+export interface SwitchMatrixDiodeSeparatedFromSwitch {
+  lineItemType: "SwitchMatrixDiodeSeparatedFromSwitch"
+  switchSchematicBox: SchematicBoxPlacement
+  diodeSchematicBox: SchematicBoxPlacement
+  switchSourcePortId: string
+  diodeSourcePortId: string
+  connectedPinDistance: number
+  maxRecommendedPinDistance: number
+  message: string
+}
+
+/** Excessive unused space between bus-connected rows/columns of a complete matrix. */
+export interface SwitchMatrixBranchesTooSpreadOut {
+  lineItemType: "SwitchMatrixBranchesTooSpreadOut"
+  branchSchematicBoxes: SchematicBoxPlacement[]
+  axis: "x" | "y"
+  emptyGap: number
+  maxRecommendedEmptyGap: number
+  message: string
+}
+
 export type SchematicPlacementIssue =
+  | SwitchMatrixBranchesTooSpreadOut
+  | SwitchMatrixDiodeSeparatedFromSwitch
   | TransistorHasIncorrectRailOrientation
   | InductorSeparatedFromChipPin
   | SharedNodeDiodesInline
