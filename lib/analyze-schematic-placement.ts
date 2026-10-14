@@ -1,3 +1,4 @@
+import { LcFilterGroupingSolver } from "./solvers/LcFilterGroupingSolver/LcFilterGroupingSolver"
 import { SwitchMatrixDiodePlacementSolver } from "./solvers/SwitchMatrixDiodePlacementSolver/SwitchMatrixDiodePlacementSolver"
 import { SeriesRcFilterPlacementSolver } from "./solvers/SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
 import { ParallelResistorPlacementSolver } from "./solvers/ParallelResistorPlacementSolver/ParallelResistorPlacementSolver"
@@ -132,6 +133,7 @@ export class SchematicPlacementAnalysis {
       CurrentSenseShuntSeparatedFromInputs: 0,
       DiodeCapacitorJunctionTooSpreadOut: 0,
       SharedNodeDiodesInline: 0,
+      LcFilterComponentsNotGrouped: 0,
       PiFilterComponentsNotGrouped: 0,
       MosfetGateNetworkNotGrouped: 0,
       CapacitorSeparatedFromChipPins: 0,
@@ -185,6 +187,8 @@ export class SchematicPlacementAnalysis {
         return SharedNodeDiodePlacementSolver.issueToString(issue)
       case "DiodeCapacitorJunctionTooSpreadOut":
         return DiodeCapacitorStagePlacementSolver.issueToString(issue)
+      case "LcFilterComponentsNotGrouped":
+        return LcFilterGroupingSolver.issueToString(issue)
       case "PiFilterComponentsNotGrouped":
         return PiFilterPlacementSolver.issueToString(issue)
       case "MosfetGateNetworkNotGrouped":

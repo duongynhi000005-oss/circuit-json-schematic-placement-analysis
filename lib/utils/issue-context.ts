@@ -105,6 +105,11 @@ export const getRelevantPlacementsForIssues = ({
         addPlacement(issue.capacitorSchematicBox)
         for (const diode of issue.diodeSchematicBoxes) addPlacement(diode)
         break
+      case "LcFilterComponentsNotGrouped":
+        addPlacement(issue.inductorSchematicBox)
+        for (const capacitor of issue.capacitorSchematicBoxes)
+          addPlacement(capacitor)
+        break
       case "PiFilterComponentsNotGrouped":
         addPlacement(issue.inductorSchematicBox)
         addPlacement(issue.firstCapacitorSchematicBox)

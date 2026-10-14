@@ -68,6 +68,7 @@ test("reproduces the complete fan supply sheet with its original TSX and LC netw
     "TwoPinComponentShouldBeVertical",
     "DecouplingCapacitorsNotCloseTogether",
     "DecouplingCapacitorsNotCloseTogether",
+    "LcFilterComponentsNotGrouped",
   ])
   expect(
     createIssueReproSnapshot({
@@ -77,7 +78,10 @@ test("reproduces the complete fan supply sheet with its original TSX and LC netw
       height: 850,
       showFullSchematic: false,
       viewportBounds,
-      showOverlay: false,
+      showOverlay: true,
+      showIssueGeometry: false,
+      issueTypes: ["LcFilterComponentsNotGrouped"],
+      showListingIssueMarkers: true,
     }),
   ).toMatchSvgSnapshot(import.meta.path, "full-sheet")
 })

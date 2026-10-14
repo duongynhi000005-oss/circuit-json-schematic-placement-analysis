@@ -1,3 +1,4 @@
+import { LcFilterGroupingSolver } from "../LcFilterGroupingSolver/LcFilterGroupingSolver"
 import { SwitchMatrixDiodePlacementSolver } from "../SwitchMatrixDiodePlacementSolver/SwitchMatrixDiodePlacementSolver"
 import { SeriesRcFilterPlacementSolver } from "../SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
 import { ParallelResistorPlacementSolver } from "../ParallelResistorPlacementSolver/ParallelResistorPlacementSolver"
@@ -74,6 +75,7 @@ const solversByIssueType = {
   CrystalSeparatedFromChipPins: [ChipPinCrystalPlacementSolver],
   SharedNodeDiodesInline: [SharedNodeDiodePlacementSolver],
   DiodeCapacitorJunctionTooSpreadOut: [DiodeCapacitorStagePlacementSolver],
+  LcFilterComponentsNotGrouped: [LcFilterGroupingSolver],
   PiFilterComponentsNotGrouped: [PiFilterPlacementSolver],
   MosfetGateNetworkNotGrouped: [MosfetGateNetworkPlacementSolver],
   FlybackDiodeSeparatedFromRelayCoil: [RelayFlybackDiodePlacementSolver],
@@ -373,6 +375,13 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
     definePipelineStep(
       "DiodeCapacitorStagePlacementSolver",
       DiodeCapacitorStagePlacementSolver,
+      (p: SchematicPlacementPipeline): [SolverParams] => [
+        { ctx: p.ctx, issues: p.issues },
+      ],
+    ),
+    definePipelineStep(
+      "LcFilterGroupingSolver",
+      LcFilterGroupingSolver,
       (p: SchematicPlacementPipeline): [SolverParams] => [
         { ctx: p.ctx, issues: p.issues },
       ],

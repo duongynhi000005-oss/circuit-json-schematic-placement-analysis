@@ -570,6 +570,17 @@ export interface CrystalSeparatedFromChipPins {
   message: string
 }
 
+/** A local series inductor is separated from its grounded capacitor bank. */
+export interface LcFilterComponentsNotGrouped {
+  lineItemType: "LcFilterComponentsNotGrouped"
+  inductorSchematicBox: SchematicBoxPlacement
+  capacitorSchematicBoxes: SchematicBoxPlacement[]
+  /** Shortest direct distance from the connected inductor pin to the bank. */
+  nearestPinDistance: number
+  maxRecommendedPinDistance: number
+  message: string
+}
+
 /** The series element and grounded shunt branches of a signal pi filter are separated. */
 export interface PiFilterComponentsNotGrouped {
   lineItemType: "PiFilterComponentsNotGrouped"
@@ -692,6 +703,7 @@ export type SchematicPlacementIssue =
   | ResistorSeparatedFromChipPin
   | CapacitorSeparatedFromChipPins
   | CrystalSeparatedFromChipPins
+  | LcFilterComponentsNotGrouped
   | PiFilterComponentsNotGrouped
   | MosfetGateNetworkNotGrouped
   | FlybackDiodeSeparatedFromRelayCoil
