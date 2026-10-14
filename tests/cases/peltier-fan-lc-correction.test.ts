@@ -49,10 +49,28 @@ test("groups the fan LC network and clears all findings without changing the cir
     )
   // Core adds pos/neg aliases to automatically placed capacitors. Compare all
   // source-port identity/metadata except those generated orientation aliases.
-  const ports = (json: CircuitJson) =>
-    json
+  const ports = (json: CircuitJson) => {
+    const capacitors = new Set(
+      json
+        .filter(
+          (e) =>
+            e.type === "source_component" && e.ftype === "simple_capacitor",
+        )
+        .map((e) => e.source_component_id),
+    )
+    return json
       .filter((e) => e.type === "source_port")
-      .map(({ port_hints, ...port }) => port)
+      .map((port) =>
+        capacitors.has(port.source_component_id!)
+          ? {
+              ...port,
+              port_hints: port.port_hints?.filter(
+                (hint) => hint !== "pos" && hint !== "neg",
+              ),
+            }
+          : port,
+      )
+  }
   expect(ports(after)).toEqual(ports(before))
   expect(partition(after)).toEqual(partition(before))
   const baseline = analyzeSchematicPlacement(before)
