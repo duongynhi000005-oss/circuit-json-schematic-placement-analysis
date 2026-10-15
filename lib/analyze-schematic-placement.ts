@@ -1,3 +1,4 @@
+import { ParallelDiodeCapacitorAlignmentSolver } from "./solvers/ParallelDiodeCapacitorAlignmentSolver/ParallelDiodeCapacitorAlignmentSolver"
 import { SwitchRcNetworkGroupingSolver } from "./solvers/SwitchRcNetworkGroupingSolver/SwitchRcNetworkGroupingSolver"
 import { SwitchMatrixDiodePlacementSolver } from "./solvers/SwitchMatrixDiodePlacementSolver/SwitchMatrixDiodePlacementSolver"
 import { SeriesRcFilterPlacementSolver } from "./solvers/SeriesRcFilterPlacementSolver/SeriesRcFilterPlacementSolver"
@@ -114,6 +115,7 @@ export class SchematicPlacementAnalysis {
       ParallelCapacitorsDrawnInline: 0,
       ParallelRcNotAligned: 0,
       ParallelDiodeResistorNotAligned: 0,
+      ParallelDiodeCapacitorNotAligned: 0,
       ComponentPinsWouldAlignWithVerticalShift: 0,
       TraceCanBeSimplifiedByMovingComponent: 0,
       CrystalNotCenteredOverLoadCapacitors: 0,
@@ -222,6 +224,8 @@ export class SchematicPlacementAnalysis {
         return ParallelResistorPlacementSolver.issueToString(issue)
       case "ParallelRcNotAligned":
         return ParallelRcPlacementSolver.issueToString(issue)
+      case "ParallelDiodeCapacitorNotAligned":
+        return ParallelDiodeCapacitorAlignmentSolver.issueToString(issue)
       case "ParallelDiodeResistorNotAligned":
         return ParallelDiodeResistorPlacementSolver.issueToString(issue)
       case "DiodeResistorNotAligned":
