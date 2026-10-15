@@ -96,8 +96,8 @@
     <tspan x="52" dy="22">&lt;ComponentPinsWouldAlignWithVerticalShift firstComponentName=&quot;R_WLED_DATA&quot;</tspan>
     <tspan x="52" dy="22">  secondComponentName=&quot;U_WLED&quot; targetComponentName=&quot;R_WLED_DATA&quot; deltaSchY=&quot;-0.1&quot; newSchY=&quot;2.9&quot;</tspan>
     <tspan x="52" dy="22">  currentlyAlignedPinCount=&quot;0&quot; alignedPinCount=&quot;1&quot; message=&quot;shift R_WLED_DATA vertically by -0.1</tspan>
-    <tspan x="52" dy="22">  so its connected pin and the chip pin share the same Y coordinate (a horizontal line);</tspan>
-    <tspan x="52" dy="22">  preserve connections and reroute the trace&quot; /&gt;</tspan>
+    <tspan x="52" dy="22">  so the connected pins share the same Y coordinate (a horizontal line); preserve connections</tspan>
+    <tspan x="52" dy="22">  and reroute the trace&quot; /&gt;</tspan>
     <tspan x="52" dy="22">&lt;CrystalNotCenteredOverLoadCapacitors crystalName=&quot;X_HF_32M&quot; firstLoadCapacitorName=&quot;C_HF_XC1&quot;</tspan>
     <tspan x="52" dy="22">  secondLoadCapacitorName=&quot;C_HF_XC2&quot; newSchX=&quot;-5.5&quot; newSchY=&quot;-7.7&quot; deltaSchX=&quot;+4.5&quot;</tspan>
     <tspan x="52" dy="22">  deltaSchY=&quot;-1.7&quot; message=&quot;move X_HF_32M to schX=-5.5, schY=-7.7 so it is centered between</tspan>

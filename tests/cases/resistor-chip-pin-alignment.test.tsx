@@ -53,12 +53,23 @@ test("reproduces a gate resistor offset from its connected chip pin", async () =
       targetComponent: { sourceComponentName: "R_GLW" },
       alignedPinCount: 1,
     },
+    {
+      lineItemType: "ComponentPinsWouldAlignWithVerticalShift",
+      targetComponent: { sourceComponentName: "L1" },
+      alignedPinCount: 1,
+    },
   ])
   const issue = analysis.getIssues()[0]
   if (issue?.lineItemType !== "ComponentPinsWouldAlignWithVerticalShift")
     throw new Error("Missing alignment recommendation")
   expect(issue.deltaSchY).toBeCloseTo(-0.2)
   expect(issue.newSchY).toBeCloseTo(gate.center.y)
+  const inductorIssue = analysis.getIssues()[1]
+  if (
+    inductorIssue?.lineItemType !== "ComponentPinsWouldAlignWithVerticalShift"
+  )
+    throw new Error("Missing inductor alignment recommendation")
+  expect(inductorIssue.deltaSchY).toBeCloseTo(-0.2)
   expect(
     createSchematicAnalysisFixtureSvg({
       circuitJson,

@@ -6,7 +6,7 @@ import type {
   SchematicPlacementIssue,
 } from "../../types"
 import { addAttr, fmtDelta } from "../../utils/format"
-import { getSingleResistorAlignmentTarget } from "./get-single-resistor-alignment-target"
+import { getSinglePinAlignmentTarget } from "./get-single-pin-alignment-target"
 import { PlacementNetworkIndex } from "../../utils/placement-network-index"
 import type { SolverContext } from "../SolverContext"
 
@@ -92,7 +92,7 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
         placementBySchematicComponentId,
       )
       if (!issue) continue
-      // Both ends of a series resistor can recommend the same vertical move.
+      // Multiple connections can recommend the same vertical move.
       const duplicate = this.out.some(
         (existing) =>
           existing.lineItemType === issue.lineItemType &&
@@ -181,15 +181,15 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
     let targetComponent = rightPlacement
     let minimumAlignedPinCount = 2
     if (horizontalPairs.length === 1 && pinPairs.length === 1) {
-      const resistor = getSingleResistorAlignmentTarget(
+      const target = getSinglePinAlignmentTarget(
         {
           ...firstPair,
           placements: [firstPlacement, secondPlacement],
         },
         this.index,
       )
-      if (!resistor) return
-      targetComponent = resistor
+      if (!target) return
+      targetComponent = target
       minimumAlignedPinCount = 1
     }
     if (horizontalPairs.length < minimumAlignedPinCount) return
@@ -234,7 +234,7 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
     const newSchY = targetComponent.schY + deltaSchY
     let message = `shift ${targetName} vertically by ${fmtDelta(deltaSchY)} to align ${bestCandidate.pairs.length} connected pin pairs`
     if (minimumAlignedPinCount === 1) {
-      message = `shift ${targetName} vertically by ${fmtDelta(deltaSchY)} so its connected pin and the chip pin share the same Y coordinate (a horizontal line); preserve connections and reroute the trace`
+      message = `shift ${targetName} vertically by ${fmtDelta(deltaSchY)} so the connected pins share the same Y coordinate (a horizontal line); preserve connections and reroute the trace`
     }
 
     return {
