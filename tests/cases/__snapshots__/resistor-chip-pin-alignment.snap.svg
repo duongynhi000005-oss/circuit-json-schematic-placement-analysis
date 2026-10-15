@@ -1,5 +1,6 @@
-<svg width="1000" height="486" viewBox="0 0 1000 486" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="schematic analysis fixture">
-  <g transform="translate(0, 0)">
+<svg width="1000" height="588" viewBox="0 0 1000 588" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0, 0) scale(1, 1) translate(0, 0)">
+    <g transform="translate(0, 0)">
     <style>
               .boundary { fill: rgb(245, 241, 237); }
               .schematic-boundary { fill: none; stroke: #fff; }
@@ -16,6 +17,15 @@
   <g transform="translate(0, 450) scale(1, 1) translate(0, 0)">
     <rect width="100%" height="100%" fill="#fff" />
 <text x="18" y="40" fill="#d00" font-family="Menlo, Consolas, monospace" font-size="16">
+</text>
+  </g>
+  </g>
+  <g transform="translate(0, 486) scale(1, 1) translate(0, 0)">
+    <rect width="100%" height="100%" fill="#fff" />
+<text x="18" y="40" fill="#d00" font-family="Menlo, Consolas, monospace" font-size="16">
+<tspan x="18" dy="0">Gate resistor alignment: R_GLW output Y=0; Q_LW pin 4 Y=-0.2.</tspan>
+<tspan x="18" dy="22">The wire has an avoidable dogleg. Recommend moving R_GLW down 0.2</tspan>
+<tspan x="18" dy="22">so the connected pins lie on the same horizontal line (same Y).</tspan>
 </text>
   </g>
 </svg>
