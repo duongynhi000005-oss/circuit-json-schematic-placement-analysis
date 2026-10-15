@@ -632,6 +632,14 @@ export interface DiodeCapacitorJunctionTooSpreadOut {
   message: string
 }
 
+/** Complete parallel resistor/LED branches drawn end-to-end. */
+export interface ParallelLedBranchesDrawnInline {
+  lineItemType: "ParallelLedBranchesDrawnInline"
+  branchSchematicBoxes: SchematicBoxPlacement[]
+  branchCount: number
+  message: string
+}
+
 /** A series LED chain with remote links that run behind their connected pins. */
 export interface SeriesLedChainNotOrdered {
   lineItemType: "SeriesLedChainNotOrdered"
@@ -708,6 +716,7 @@ export type SchematicPlacementIssue =
   | InductorSeparatedFromChipPin
   | SharedNodeDiodesInline
   | DiodeCapacitorJunctionTooSpreadOut
+  | ParallelLedBranchesDrawnInline
   | SeriesLedChainNotOrdered
   | RailPathTooSpreadOut
   | ResistorSeparatedFromChipPin
