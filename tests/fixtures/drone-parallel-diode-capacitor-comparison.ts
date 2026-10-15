@@ -71,7 +71,7 @@ export function createDroneParallelComparison(
             const n = before.analysis.getIssues().indexOf(issue) + 1
             return `${n}. ${issue.diodeSchematicBox.sourceComponentName} / ${issue.capacitorSchematicBox.sourceComponentName}: staggered, with shared nets at opposite ends.`
           })
-      return `<g transform="translate(${side * panelWidth} 0)"><text x="18" y="30" font-family="sans-serif" font-size="24" fill="#172b3a">${side ? "After" : "Before"} — ${detail ? "motor 1" : "four motor blocks (sectional views)"}</text>${views}${diagnostics.map((line, i) => `<text x="18" y="${circuitHeight + 73 + i * 24}" font-family="sans-serif" font-size="18" fill="${side ? "#172b3a" : "#b91c1c"}">${escape(line)}</text>`).join("")}</g>`
+      return `<g transform="translate(${side * panelWidth} 0)"><text x="18" y="30" font-family="sans-serif" font-size="24" fill="#172b3a">${side ? "After" : "Before"} — ${detail ? "motor 1" : "four motor blocks (sectional views)"}</text>${views}${diagnostics.map((line, i) => `<text x="18" y="${circuitHeight + 73 + i * 24}" font-family="sans-serif" font-size="18" fill="#b91c1c">${escape(line)}</text>`).join("")}</g>`
     })
     .join("\n")
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" fill="white"/><rect y="45" width="${width}" height="${circuitHeight}" fill="#f5f1ed"/>${panels}<line x1="${panelWidth}" x2="${panelWidth}" y1="0" y2="${height}" stroke="#9ca3af" stroke-width="2"/></svg>`
