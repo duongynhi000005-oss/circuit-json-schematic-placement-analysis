@@ -6,6 +6,7 @@ import type {
   SchematicPlacementIssue,
 } from "../../types"
 import { addAttr, fmtDelta } from "../../utils/format"
+import { getSingleResistorAlignmentTarget } from "./get-single-resistor-alignment-target"
 import { PlacementNetworkIndex } from "../../utils/placement-network-index"
 import type { SolverContext } from "../SolverContext"
 
@@ -177,14 +178,21 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
         ? [{ leftPort, rightPort }]
         : []
     })
+    let targetComponent = rightPlacement
+    let minimumAlignedPinCount = 2
     if (horizontalPairs.length === 1 && pinPairs.length === 1) {
-      return this.findSingleResistorShiftIssue({
-        pair: firstPair,
-        firstPlacement,
-        secondPlacement,
-      })
+      const resistor = getSingleResistorAlignmentTarget(
+        {
+          ...firstPair,
+          placements: [firstPlacement, secondPlacement],
+        },
+        this.index,
+      )
+      if (!resistor) return
+      targetComponent = resistor
+      minimumAlignedPinCount = 1
     }
-    if (horizontalPairs.length < 2) return
+    if (horizontalPairs.length < minimumAlignedPinCount) return
 
     const { ALIGNMENT_EPSILON } = ComponentPinAlignmentSolver
     const currentlyAlignedPinCount = horizontalPairs.filter(
@@ -214,21 +222,26 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
     )[0]
     if (
       !bestCandidate ||
-      bestCandidate.pairs.length < 2 ||
+      bestCandidate.pairs.length < minimumAlignedPinCount ||
       bestCandidate.pairs.length <= currentlyAlignedPinCount
     ) {
       return
     }
 
-    const targetName = rightPlacement.sourceComponentName || "component"
-    const deltaSchY = bestCandidate.deltaSchY
-    const newSchY = rightPlacement.schY + deltaSchY
+    const targetName = targetComponent.sourceComponentName || "component"
+    let deltaSchY = bestCandidate.deltaSchY
+    if (targetComponent === leftPlacement) deltaSchY = -deltaSchY
+    const newSchY = targetComponent.schY + deltaSchY
+    let message = `shift ${targetName} vertically by ${fmtDelta(deltaSchY)} to align ${bestCandidate.pairs.length} connected pin pairs`
+    if (minimumAlignedPinCount === 1) {
+      message = `shift ${targetName} vertically by ${fmtDelta(deltaSchY)} so its connected pin and the chip pin share the same Y coordinate (a horizontal line); preserve connections and reroute the trace`
+    }
 
     return {
       lineItemType: "ComponentPinsWouldAlignWithVerticalShift",
       firstComponent: leftPlacement,
       secondComponent: rightPlacement,
-      targetComponent: rightPlacement,
+      targetComponent,
       deltaSchY,
       newSchY,
       currentlyAlignedPinCount,
@@ -237,85 +250,12 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
         firstPin: this.getPinLabel(leftPort),
         secondPin: this.getPinLabel(rightPort),
       })),
-      message: `shift ${targetName} vertically by ${fmtDelta(deltaSchY)} to align ${bestCandidate.pairs.length} connected pin pairs`,
+      message,
     }
   }
 
   private getPinLabel(port: SchematicPort): string | undefined {
     return port.display_pin_label ?? port.pin_number?.toString()
-  }
-
-  private findSingleResistorShiftIssue({
-    pair,
-    firstPlacement,
-    secondPlacement,
-  }: {
-    pair: ConnectedPinPair
-    firstPlacement: SchematicBoxPlacement
-    secondPlacement: SchematicBoxPlacement
-  }): ComponentPinsWouldAlignWithVerticalShift | undefined {
-    let resistor = firstPlacement
-    let chip = secondPlacement
-    let resistorPin = pair.firstPort
-    let chipPin = pair.secondPort
-    if (
-      this.index.components.get(resistor.sourceComponentId ?? "")?.ftype !==
-      "simple_resistor"
-    ) {
-      resistor = secondPlacement
-      chip = firstPlacement
-      resistorPin = pair.secondPort
-      chipPin = pair.firstPort
-    }
-    if (
-      this.index.components.get(resistor.sourceComponentId ?? "")?.ftype !==
-        "simple_resistor" ||
-      this.index.components.get(chip.sourceComponentId ?? "")?.ftype !==
-        "simple_chip" ||
-      !this.index.sameLocalScope(resistor, chip) ||
-      !resistorPin.source_port_id ||
-      !chipPin.source_port_id
-    )
-      return
-
-    const resistorNets = this.index.twoTerminalNets(resistor.sourceComponentId!)
-    // Rail-connected pull resistors follow branch-placement rules instead.
-    if (!resistorNets || resistorNets.some((net) => this.index.isRail(net)))
-      return
-
-    // Only a private, non-rail connection establishes a local pin-to-pin branch.
-    const net = this.index.connected(resistorPin.source_port_id)
-    if (
-      this.index.connected(chipPin.source_port_id) !== net ||
-      this.index.portsByNet.get(net)?.length !== 2
-    )
-      return
-    const deltaSchY = chipPin.center.y - resistorPin.center.y
-    if (
-      !Number.isFinite(deltaSchY) ||
-      Math.abs(deltaSchY) <= ComponentPinAlignmentSolver.ALIGNMENT_EPSILON ||
-      // Only suggest a small local nudge, not relocating a remote series branch.
-      Math.abs(deltaSchY) > resistor.height / 2
-    )
-      return
-
-    return {
-      lineItemType: "ComponentPinsWouldAlignWithVerticalShift",
-      firstComponent: firstPlacement,
-      secondComponent: secondPlacement,
-      targetComponent: resistor,
-      deltaSchY,
-      newSchY: resistor.schY + deltaSchY,
-      currentlyAlignedPinCount: 0,
-      alignedPinCount: 1,
-      alignedPinPairs: [
-        {
-          firstPin: this.getPinLabel(pair.firstPort),
-          secondPin: this.getPinLabel(pair.secondPort),
-        },
-      ],
-      message: `shift ${resistor.sourceComponentName || "resistor"} vertically by ${fmtDelta(deltaSchY)} so its connected pin and the chip pin share the same Y coordinate (a horizontal line); preserve connections and reroute the trace`,
-    }
   }
 
   static issueToString(
