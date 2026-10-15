@@ -1,11 +1,7 @@
 import { expect, test } from "bun:test"
 import { Circuit } from "@tscircuit/core"
 import { analyzeSchematicPlacement } from "lib/index"
-import { stackSvgsVertically } from "stack-svgs"
-import {
-  createAnalyzerTextSvg,
-  createSchematicAnalysisFixtureSvg,
-} from "../fixtures/create-schematic-analysis-fixture-svg"
+import { createSchematicAnalysisFixtureSvg } from "../fixtures/create-schematic-analysis-fixture-svg"
 
 test("reproduces a gate resistor offset from its connected chip pin", async () => {
   const circuit = new Circuit()
@@ -52,22 +48,13 @@ test("reproduces a gate resistor offset from its connected chip pin", async () =
   // Current behavior: the alignment checker requires two connected pin pairs.
   expect(analysis.getIssues()).toEqual([])
   expect(
-    stackSvgsVertically(
-      [
-        createSchematicAnalysisFixtureSvg({
-          circuitJson,
-          analysis,
-          width: 1000,
-          height: 450,
-          highlightIssues: true,
-        }),
-        createAnalyzerTextSvg(
-          "Gate resistor alignment: R_GLW output Y=0; Q_LW pin 4 Y=-0.2.\nThe wire has an avoidable dogleg. Recommend moving R_GLW down 0.2\nso the connected pins lie on the same horizontal line (same Y).",
-          1000,
-        ),
-      ],
-      { normalizeSize: false },
-    ),
+    createSchematicAnalysisFixtureSvg({
+      circuitJson,
+      analysis,
+      width: 1000,
+      height: 450,
+      highlightIssues: true,
+    }),
   ).toMatchSvgSnapshot(import.meta.path)
   expect(JSON.stringify(circuitJson)).toBe(original)
 })
