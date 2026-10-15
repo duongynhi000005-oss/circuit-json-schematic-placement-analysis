@@ -6,6 +6,7 @@ import type {
   SchematicPlacementIssue,
 } from "../../types"
 import { addAttr, fmtDelta } from "../../utils/format"
+import { PlacementNetworkIndex } from "../../utils/placement-network-index"
 import type { SolverContext } from "../SolverContext"
 
 interface ConnectedPinPair {
@@ -18,6 +19,7 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
 
   private readonly ctx: SolverContext
   private readonly out: SchematicPlacementIssue[]
+  private readonly index: PlacementNetworkIndex
 
   constructor({
     ctx,
@@ -29,6 +31,7 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
     super()
     this.ctx = ctx
     this.out = issues
+    this.index = new PlacementNetworkIndex(ctx)
   }
 
   override _step(): void {
@@ -87,7 +90,19 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
         pinPairs,
         placementBySchematicComponentId,
       )
-      if (issue) this.out.push(issue)
+      if (!issue) continue
+      // Both ends of a series resistor can recommend the same vertical move.
+      const duplicate = this.out.some(
+        (existing) =>
+          existing.lineItemType === issue.lineItemType &&
+          existing.alignedPinCount === 1 &&
+          issue.alignedPinCount === 1 &&
+          existing.targetComponent.schematicComponentId ===
+            issue.targetComponent.schematicComponentId &&
+          Math.abs(existing.deltaSchY - issue.deltaSchY) <=
+            ComponentPinAlignmentSolver.ALIGNMENT_EPSILON,
+      )
+      if (!duplicate) this.out.push(issue)
     }
 
     this.solved = true
@@ -162,6 +177,13 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
         ? [{ leftPort, rightPort }]
         : []
     })
+    if (horizontalPairs.length === 1 && pinPairs.length === 1) {
+      return this.findSingleResistorShiftIssue({
+        pair: firstPair,
+        firstPlacement,
+        secondPlacement,
+      })
+    }
     if (horizontalPairs.length < 2) return
 
     const { ALIGNMENT_EPSILON } = ComponentPinAlignmentSolver
@@ -221,6 +243,79 @@ export class ComponentPinAlignmentSolver extends BaseSolver {
 
   private getPinLabel(port: SchematicPort): string | undefined {
     return port.display_pin_label ?? port.pin_number?.toString()
+  }
+
+  private findSingleResistorShiftIssue({
+    pair,
+    firstPlacement,
+    secondPlacement,
+  }: {
+    pair: ConnectedPinPair
+    firstPlacement: SchematicBoxPlacement
+    secondPlacement: SchematicBoxPlacement
+  }): ComponentPinsWouldAlignWithVerticalShift | undefined {
+    let resistor = firstPlacement
+    let chip = secondPlacement
+    let resistorPin = pair.firstPort
+    let chipPin = pair.secondPort
+    if (
+      this.index.components.get(resistor.sourceComponentId ?? "")?.ftype !==
+      "simple_resistor"
+    ) {
+      resistor = secondPlacement
+      chip = firstPlacement
+      resistorPin = pair.secondPort
+      chipPin = pair.firstPort
+    }
+    if (
+      this.index.components.get(resistor.sourceComponentId ?? "")?.ftype !==
+        "simple_resistor" ||
+      this.index.components.get(chip.sourceComponentId ?? "")?.ftype !==
+        "simple_chip" ||
+      !this.index.sameLocalScope(resistor, chip) ||
+      !resistorPin.source_port_id ||
+      !chipPin.source_port_id
+    )
+      return
+
+    const resistorNets = this.index.twoTerminalNets(resistor.sourceComponentId!)
+    // Rail-connected pull resistors follow branch-placement rules instead.
+    if (!resistorNets || resistorNets.some((net) => this.index.isRail(net)))
+      return
+
+    // Only a private, non-rail connection establishes a local pin-to-pin branch.
+    const net = this.index.connected(resistorPin.source_port_id)
+    if (
+      this.index.connected(chipPin.source_port_id) !== net ||
+      this.index.portsByNet.get(net)?.length !== 2
+    )
+      return
+    const deltaSchY = chipPin.center.y - resistorPin.center.y
+    if (
+      !Number.isFinite(deltaSchY) ||
+      Math.abs(deltaSchY) <= ComponentPinAlignmentSolver.ALIGNMENT_EPSILON ||
+      // Only suggest a small local nudge, not relocating a remote series branch.
+      Math.abs(deltaSchY) > resistor.height / 2
+    )
+      return
+
+    return {
+      lineItemType: "ComponentPinsWouldAlignWithVerticalShift",
+      firstComponent: firstPlacement,
+      secondComponent: secondPlacement,
+      targetComponent: resistor,
+      deltaSchY,
+      newSchY: resistor.schY + deltaSchY,
+      currentlyAlignedPinCount: 0,
+      alignedPinCount: 1,
+      alignedPinPairs: [
+        {
+          firstPin: this.getPinLabel(pair.firstPort),
+          secondPin: this.getPinLabel(pair.secondPort),
+        },
+      ],
+      message: `shift ${resistor.sourceComponentName || "resistor"} vertically by ${fmtDelta(deltaSchY)} so its connected pin and the chip pin share the same Y coordinate (a horizontal line); preserve connections and reroute the trace`,
+    }
   }
 
   static issueToString(

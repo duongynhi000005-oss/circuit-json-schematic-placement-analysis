@@ -10,11 +10,12 @@ test("records every issue count and isolates the real controller's crystal repor
   expect(
     Object.entries(analysis.getIssueCounts()).filter(([, count]) => count > 0),
   ).toEqual([
+    ["ComponentPinsWouldAlignWithVerticalShift", 1],
     ["CrystalNotCenteredOverLoadCapacitors", 1],
     ["TwoPinComponentShouldBeVertical", 1],
     ["DecouplingCapacitorsNotCloseTogether", 1],
   ])
-  expect(analysis.getIssues()).toHaveLength(3)
+  expect(analysis.getIssues()).toHaveLength(4)
   expect(analysis.getIssues({ issueTypes: [] })).toEqual([])
   const input = {
     circuitJson,

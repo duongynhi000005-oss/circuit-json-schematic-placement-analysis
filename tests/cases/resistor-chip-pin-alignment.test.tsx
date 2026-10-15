@@ -7,12 +7,12 @@ import {
   createSchematicAnalysisFixtureSvg,
 } from "../fixtures/create-schematic-analysis-fixture-svg"
 
-test("reproduces a gate resistor offset from its connected chip pin", async () => {
+async function renderGateConnection(schY = 0) {
   const circuit = new Circuit()
   circuit.pcbDisabled = true
   circuit.add(
     <board>
-      <resistor name="R_GLW" resistance="25" schX={-3} schY={0} />
+      <resistor name="R_GLW" resistance="25" schX={-3} schY={schY} />
       <chip
         name="Q_LW"
         schX={0}
@@ -35,7 +35,11 @@ test("reproduces a gate resistor offset from its connected chip pin", async () =
     </board>,
   )
   await circuit.renderUntilSettled()
-  const circuitJson = circuit.getCircuitJson()
+  return circuit.getCircuitJson()
+}
+
+test("reports a gate resistor offset from its connected chip pin", async () => {
+  const circuitJson = await renderGateConnection()
   const original = JSON.stringify(circuitJson)
   const gate = circuitJson.find(
     (el) => el.type === "schematic_port" && el.pin_number === 4,
@@ -49,8 +53,51 @@ test("reproduces a gate resistor offset from its connected chip pin", async () =
   })
   // Both bodies are centered at Y=0, but the connected gate pin is at Y=-0.2.
   // The resistor should move down 0.2 so its output and the gate share a Y coordinate.
-  // Current behavior: the alignment checker requires two connected pin pairs.
-  expect(analysis.getIssues()).toEqual([])
+  expect(analysis.getIssues()).toMatchObject([
+    {
+      lineItemType: "ComponentPinsWouldAlignWithVerticalShift",
+      targetComponent: { sourceComponentName: "R_GLW" },
+      currentlyAlignedPinCount: 0,
+      alignedPinCount: 1,
+    },
+  ])
+  const issue = analysis.getIssues()[0]
+  if (issue?.lineItemType !== "ComponentPinsWouldAlignWithVerticalShift")
+    throw new Error("Missing alignment recommendation")
+  expect(issue.deltaSchY).toBeCloseTo(-0.2)
+  expect(issue.newSchY).toBeCloseTo(gate.center.y)
+  expect(
+    analyzeSchematicPlacement(await renderGateConnection(issue.newSchY), {
+      issueTypes: ["ComponentPinsWouldAlignWithVerticalShift"],
+    }).getIssues(),
+  ).toEqual([])
+  // Large offsets need broader placement review rather than a local alignment nudge.
+  expect(
+    analyzeSchematicPlacement(await renderGateConnection(1), {
+      issueTypes: ["ComponentPinsWouldAlignWithVerticalShift"],
+    }).getIssues(),
+  ).toEqual([])
+  const shared = structuredClone(circuitJson)
+  const otherPin = shared.find(
+    (el) => el.type === "schematic_port" && el.pin_number === 5,
+  )
+  if (
+    otherPin?.type !== "schematic_port" ||
+    !otherPin.source_port_id ||
+    !gate.source_port_id
+  )
+    throw new Error("Missing source ports")
+  shared.push({
+    type: "source_trace",
+    source_trace_id: "shared-branch",
+    connected_source_port_ids: [gate.source_port_id, otherPin.source_port_id],
+    connected_source_net_ids: [],
+  })
+  expect(
+    analyzeSchematicPlacement(shared, {
+      issueTypes: ["ComponentPinsWouldAlignWithVerticalShift"],
+    }).getIssues(),
+  ).toEqual([])
   expect(
     stackSvgsVertically(
       [

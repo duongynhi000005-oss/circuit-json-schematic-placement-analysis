@@ -89,8 +89,8 @@ test("reproduces the complete wireless mouse controller sheet layout", () => {
         node.children.find((child) => child.name === "text")?.children[0]
           ?.value,
     ),
-  ).toEqual(["1", "1", "1"])
-  expect(svg).toContain('data-listing-issue-number="1"')
+  ).toEqual(["2", "2", "2"])
+  expect(svg).toContain('data-listing-issue-number="2"')
   expect(svg).not.toContain('data-issue-type="TwoPinComponentShouldBeVertical"')
   expect(svg).toContain("&lt;TwoPinComponentShouldBeVertical")
   expect(svg).toMatchSvgSnapshot(import.meta.path)
