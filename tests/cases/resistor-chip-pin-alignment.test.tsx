@@ -9,6 +9,7 @@ test("reproduces a gate resistor offset from its connected chip pin", async () =
   circuit.add(
     <board>
       <resistor name="R_GLW" resistance="25" schX={-3} schY={0} />
+      <inductor name="L1" inductance="10uH" schX={-5} schY={0.6} />
       <chip
         name="Q_LW"
         schX={0}
@@ -28,6 +29,7 @@ test("reproduces a gate resistor offset from its connected chip pin", async () =
         }}
       />
       <trace from=".R_GLW > .pin2" to=".Q_LW > .pin4" />
+      <trace from=".L1 > .pin2" to=".Q_LW > .pin1" />
     </board>,
   )
   await circuit.renderUntilSettled()
