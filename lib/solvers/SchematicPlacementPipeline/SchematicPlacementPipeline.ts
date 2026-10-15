@@ -488,16 +488,6 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
   }
 
   override getOutput() {
-    // Append new single-pin findings without renumbering existing diagnostics.
-    const issues = this.issues.toSorted((first, second) => {
-      const firstSinglePin =
-        first.lineItemType === "ComponentPinsWouldAlignWithVerticalShift" &&
-        first.alignedPinCount === 1
-      const secondSinglePin =
-        second.lineItemType === "ComponentPinsWouldAlignWithVerticalShift" &&
-        second.alignedPinCount === 1
-      return Number(firstSinglePin) - Number(secondSinglePin)
-    })
     // Prefer the rail-aware rotation over a duplicate generic capacitor warning.
     // The capacitor solver still reports horizontal capacitors outside this rule.
     const railOrientationComponentIds = new Set(
@@ -509,7 +499,7 @@ export class SchematicPlacementPipeline extends BasePipelineSolver<CircuitJson> 
       ),
     )
     return {
-      issues: issues
+      issues: this.issues
         .filter(
           (issue) =>
             issue.lineItemType !== "CapacitorSymbolHorizontal" ||
